@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      AVL Tree | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="AVL树又称为平衡二叉树，即Balanced Binary Tree或者Height-Balanced Tree，它或者是一棵空二叉树，或者是具有如下性质的二叉查找树：其左子树和右子树都是高度平衡的二叉树，且左子树和右子树的高度之差的绝对值不超过1。
+如何判断一个树是平衡二叉树？在查阅资料时发现LeetCode上面的这道题，我的 Accepted 代码如下
+12345678910111213141">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVL Tree | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2017/12/01/AVL_Tree/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="AVL树又称为平衡二叉树，即Balanced Binary Tree或者Height-Balanced Tree，它或者是一棵空二叉树，或者是具有如下性质的二叉查找树：其左子树和右子树都是高度平衡的二叉树，且左子树和右子树的高度之差的绝对值不超过1。
+如何判断一个树是平衡二叉树？在查阅资料时发现LeetCode上面的这道题，我的 Accepted 代码如下
+12345678910111213141">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-93d8e28c2827a751.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-7ea9110d079d7cbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-9238a3f99b06b212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-8f4b2ad29fe36064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-c82493fd3bb737aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-12-04T12:21:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AVL Tree | Cruyun's Blog">
+<meta name="twitter:description" content="AVL树又称为平衡二叉树，即Balanced Binary Tree或者Height-Balanced Tree，它或者是一棵空二叉树，或者是具有如下性质的二叉查找树：其左子树和右子树都是高度平衡的二叉树，且左子树和右子树的高度之差的绝对值不超过1。
+如何判断一个树是平衡二叉树？在查阅资料时发现LeetCode上面的这道题，我的 Accepted 代码如下
+12345678910111213141">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4938344-93d8e28c2827a751.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">AVL Tree</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-12-01" class="post-meta__date date">2017-12-01</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Data-struture/">Data-struture</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>AVL树又称为平衡二叉树，即Balanced Binary Tree或者Height-Balanced Tree，它或者是一棵<strong>空二叉树</strong>，或者是具有如下性质的二叉查找树：其左子树和右子树都是高度平衡的二叉树，且<strong>左子树和右子树的高度之差的绝对值不超过1</strong>。</p>
+<h2 id="如何判断一个树是平衡二叉树？"><a href="#如何判断一个树是平衡二叉树？" class="headerlink" title="如何判断一个树是平衡二叉树？"></a>如何判断一个树是平衡二叉树？</h2><p>在查阅资料时发现LeetCode上面的这道题，我的 Accepted 代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">bool isBalanced(TreeNode* root) &#123;</div><div class="line">        return depth(root) == -1 ? false : true;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    int depth(TreeNode* root) &#123;</div><div class="line">       if (root == NULL)</div><div class="line">           return 0;</div><div class="line">        </div><div class="line">        int h1 = depth(root-&gt;left);</div><div class="line">        if (h1 == -1)</div><div class="line">            return -1;</div><div class="line"></div><div class="line">        int h2 = depth(root-&gt;right);</div><div class="line">        if (h2 == -1)</div><div class="line">            return -1;</div><div class="line">        </div><div class="line">        int diff = abs(h1 - h2);</div><div class="line">        </div><div class="line">        if (diff &gt; 1) </div><div class="line">            return -1;</div><div class="line">        else</div><div class="line">            return 1 + max(h1, h2);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>使用递归的方式，假如为null的话该节点的depth为-1，遍历得到各节点的左子树和右子树的高度。这里没有写成<code>if (h1 == -1 || h2 == -1) return -1；</code>是因为如果左子树不平衡的话就不必检查右子树了，这棵树一定是不平衡的。</p>
+<h2 id="AVL-Tree-Rotations-平衡二叉树的调整"><a href="#AVL-Tree-Rotations-平衡二叉树的调整" class="headerlink" title="AVL Tree Rotations 平衡二叉树的调整"></a>AVL Tree Rotations 平衡二叉树的调整</h2><p>判断是否为平衡二叉树的重要因素是节点的左子树和右子树的高度差，定义为“平衡因子BF(Balanced Factor）”。</p>
+<p>每次插入新节点时，找到离该节点最近的非平衡节点（左右子树的高度差大于1），进行旋转操作。</p>
+<p>具体是以下四种旋转方式：</p>
+<ul>
+<li>Left Rotation 左旋</li>
+<li>Right Rotation 右旋</li>
+<li>Left-Right Rotation 左旋后右旋</li>
+<li>Right-Left Rotation 右旋后左旋</li>
+</ul>
+<h3 id="Left-Rotation-左旋"><a href="#Left-Rotation-左旋" class="headerlink" title="Left Rotation 左旋"></a>Left Rotation 左旋</h3><p><img src="http://upload-images.jianshu.io/upload_images/4938344-93d8e28c2827a751.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LL Rotation.png"></p>
+<p>当新插入的节点为右子树的右子节点时，找到离3最近的不平衡节点1，以1为轴进行左旋的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">avl_node *avlTree::ll_rotation(avl_node *parent)</div><div class="line">&#123;</div><div class="line">    avl_node *temp;</div><div class="line">    temp = parent-&gt;left;</div><div class="line">    parent-&gt;left = temp-&gt;right;</div><div class="line">    temp-&gt;right = parent;</div><div class="line">    return temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Right-Rotation-右旋"><a href="#Right-Rotation-右旋" class="headerlink" title="Right Rotation 右旋"></a>Right Rotation 右旋</h3><p><img src="http://upload-images.jianshu.io/upload_images/4938344-7ea9110d079d7cbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RR Rotation.png"></p>
+<p>当新插入的节点为左子树的左子节点时，找到离1最近的不平衡节点3，以3为轴进行右旋的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">avl_node *avlTree::rr_rotation(avl_node *parent)</div><div class="line">&#123;</div><div class="line">    avl_node *temp;</div><div class="line">    temp = parent-&gt;right;</div><div class="line">    parent-&gt;right = temp-&gt;left;</div><div class="line">    temp-&gt;left = parent;</div><div class="line">    return temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Left-Right-Rotation-左旋后右旋"><a href="#Left-Right-Rotation-左旋后右旋" class="headerlink" title="Left-Right Rotation 左旋后右旋"></a>Left-Right Rotation 左旋后右旋</h3><p><img src="http://upload-images.jianshu.io/upload_images/4938344-9238a3f99b06b212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LR Rotation.png"></p>
+<p>假若某节点被插入到了左子树的右节点，首先以1为轴旋转，然后以3为轴旋转。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">avl_node *avlTree::lr_rotation(avl_node *parent)</div><div class="line">&#123;</div><div class="line">    avl_node *temp;</div><div class="line">    temp = parent-&gt;left;</div><div class="line">    parent-&gt;left = rr_rotation (temp);</div><div class="line">    return ll_rotation (parent);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Right-Left-Rotation-右旋后左旋"><a href="#Right-Left-Rotation-右旋后左旋" class="headerlink" title="Right-Left Rotation 右旋后左旋"></a>Right-Left Rotation 右旋后左旋</h3><p><img src="http://upload-images.jianshu.io/upload_images/4938344-8f4b2ad29fe36064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RL Rotation.png"></p>
+<p>假若某节点被插到右子树的左节点，首先以3为轴旋转，再以1为轴旋转。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">avl_node *avlTree::rl_rotation(avl_node *parent)</div><div class="line">&#123;</div><div class="line">    avl_node *temp;</div><div class="line">    temp = parent-&gt;right;</div><div class="line">    parent-&gt;right = ll_rotation (temp);</div><div class="line">    return rr_rotation (parent);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Operations-on-an-AVL-Tree-平衡二叉树的操作（查找、插入、删除）"><a href="#Operations-on-an-AVL-Tree-平衡二叉树的操作（查找、插入、删除）" class="headerlink" title="Operations on an AVL Tree 平衡二叉树的操作（查找、插入、删除）"></a>Operations on an AVL Tree 平衡二叉树的操作（查找、插入、删除）</h2><h3 id="查找-Search-Operation"><a href="#查找-Search-Operation" class="headerlink" title="查找 Search Operation"></a>查找 Search Operation</h3><p>在AVL tree中，查找操作的时间复杂度是O(log n)，它的查找操作类似于二叉查找树。</p>
+<ol>
+<li>读取用户输入的根节点</li>
+<li>对比判断这个节点是否为根节点</li>
+<li>假如相等，则返回</li>
+<li>假如不等，与该节点比较大小，若比根节点小，则与根节点的左子树比较，否则与右子树比较</li>
+<li>重复34过程直到找到或者子树为空</li>
+</ol>
+<h3 id="插入-Insertion-Operation"><a href="#插入-Insertion-Operation" class="headerlink" title="插入 Insertion Operation"></a>插入 Insertion Operation</h3><p>在AVL tree中，插入操作的时间复杂度是O(log n)，查找操作一般都是插入为子节点。</p>
+<ol>
+<li>以二叉查找树的插入操作相同的方法插入节点</li>
+<li>插入之后，检查每一个节点的平衡因子</li>
+<li>假如每个平衡因子都是0 -1 或 1，则该树仍平衡</li>
+<li>假如有任意一个节点的平衡因子不是0 -1 或1，说明不平衡，选取上述的四种操作进行调整</li>
+</ol>
+<p>比如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4938344-c82493fd3bb737aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="insert.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">avl_node *avlTree::insert(avl_node *root, int value)</div><div class="line">&#123;</div><div class="line">    if (root == NULL)</div><div class="line">    &#123;</div><div class="line">        root = new avl_node;</div><div class="line">        root-&gt;data = value;</div><div class="line">        root-&gt;left = NULL;</div><div class="line">        root-&gt;right = NULL;</div><div class="line">        return root;</div><div class="line">    &#125;</div><div class="line">    else if (value &lt; root-&gt;data)</div><div class="line">    &#123;</div><div class="line">        root-&gt;left = insert(root-&gt;left, value);</div><div class="line">        root = balance (root);</div><div class="line">    &#125;</div><div class="line">    else if (value &gt;= root-&gt;data)</div><div class="line">    &#123;</div><div class="line">        root-&gt;right = insert(root-&gt;right, value);</div><div class="line">        root = balance (root);</div><div class="line">    &#125;</div><div class="line">    return root;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="删除-Deletion-Operation"><a href="#删除-Deletion-Operation" class="headerlink" title="删除 Deletion Operation"></a>删除 Deletion Operation</h3><p>在AVL tree中，删除的操作同样类似于二叉查找树，与之不同的是，我们需要每次删除之后判断是否为平衡二叉树，假如不平衡的话需要作出调整。</p>
+<p><strong>参考资料</strong>：</p>
+<ul>
+<li><a href="https://leetcode.com/problems/balanced-binary-tree/description/" target="_blank" rel="external">LeetCode: Balanced Binary Tree</a></li>
+<li><a href="http://btechsmartclass.com/DS/U5_T2.html" target="_blank" rel="external">AVL Tree</a></li>
+<li><a href="https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm" target="_blank" rel="external">Data Structure and Algorithms - AVL Trees</a></li>
+</ul>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Bomb Lab | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="$ gdb bomb
+设置断点12345678910111213141516171819(gdb) break explode_bombbreak phase_1break phase_2break phase_3break phase_4break phase_5(gdb)  break explode_bombBreakpoint 1 at 0x40143a(gdb) break phase_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bomb Lab | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2017/04/22/bomblab/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="$ gdb bomb
+设置断点12345678910111213141516171819(gdb) break explode_bombbreak phase_1break phase_2break phase_3break phase_4break phase_5(gdb)  break explode_bombBreakpoint 1 at 0x40143a(gdb) break phase_">
+<meta property="og:updated_time" content="2018-05-03T13:10:45.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bomb Lab | Cruyun's Blog">
+<meta name="twitter:description" content="$ gdb bomb
+设置断点12345678910111213141516171819(gdb) break explode_bombbreak phase_1break phase_2break phase_3break phase_4break phase_5(gdb)  break explode_bombBreakpoint 1 at 0x40143a(gdb) break phase_">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Bomb Lab</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-04-22" class="post-meta__date date">2017-04-22</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/CSAPP/">CSAPP</a>, <a class="tags-link" href="/tags/汇编/">汇编</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>$ gdb bomb</p>
+<p>设置断点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">(gdb) break explode_bomb</div><div class="line">break phase_1</div><div class="line">break phase_2</div><div class="line">break phase_3</div><div class="line">break phase_4</div><div class="line">break phase_5</div><div class="line">(gdb)  break explode_bomb</div><div class="line">Breakpoint 1 at 0x40143a</div><div class="line">(gdb) break phase_1</div><div class="line">Breakpoint 2 at 0x400ee0</div><div class="line">(gdb) break phase_2</div><div class="line">Breakpoint 3 at 0x400efc</div><div class="line">(gdb) break phase_3</div><div class="line">Breakpoint 4 at 0x400f43</div><div class="line">(gdb) break phase_4</div><div class="line">Breakpoint 5 at 0x40100c</div><div class="line">(gdb) break phase_5</div><div class="line">Breakpoint 6 at 0x401062</div><div class="line">(gdb) run</div></pre></td></tr></table></figure></p>
+<p>(gdb) disas<br>分析第一个phase<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Dump of assembler code for function phase_1:</div><div class="line">=&gt; 0x0000000000400ee0 &lt;+0&gt;:   sub    $0x8,%rsp</div><div class="line">0x0000000000400ee4 &lt;+4&gt;:   mov    $0x402400,%esi</div><div class="line">0x0000000000400ee9 &lt;+9&gt;:   callq  0x401338 &lt;strings_not_equal&gt;</div><div class="line">0x0000000000400eee &lt;+14&gt;:  test   %eax,%eax</div><div class="line">0x0000000000400ef0 &lt;+16&gt;:  je     0x400ef7 &lt;phase_1+23&gt;</div><div class="line">0x0000000000400ef2 &lt;+18&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x0000000000400ef7 &lt;+23&gt;:  add    $0x8,%rsp</div><div class="line">0x0000000000400efb &lt;+27&gt;:  retq   </div><div class="line">End of assembler dump.</div></pre></td></tr></table></figure></p>
+<p>看到mov $0x402400,%esi 之后调用了函数 <strings_not_equal><br>disas 这个函数之后分析得出，$0x402400指向一个字符串，如果输入的字符串和这个指针指向的字符串完全相同则不触发bomb，<br><figure class="highlight plain"><figcaption><span>(gdb) print (char*)0x402400```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">```$1 = 0x402400 &quot;Border relations with Canada have never been better.&quot;</div></pre></td></tr></table></figure></strings_not_equal></p>
+<p>所以答案就是Border relations with Canada have never been better.<br>(gdb) Quit<br>(gdb) run<br>The program being debugged has been started already.<br>Start it from the beginning? (y or n) y<br>Starting program: /home/cry/Desktop/bomb/bomb<br>Welcome to my fiendish little bomb. You have 6 phases with<br>which to blow yourself up. Have a nice day!<br>Border relations with Canada have never been better.</p>
+<p>Breakpoint 2, 0x0000000000400ee0 in phase_1 ()</p>
+<p><code>(gdb) continue //如果答案正确会显示Phase 1 defused. How about the next one?，否则bomb explode</code></p>
+<hr>
+<p><strong>Phase_2</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Dump of assembler code for function phase_2:</div><div class="line">=&gt; 0x0000000000400efc &lt;+0&gt;:   push   %rbp</div><div class="line">0x0000000000400efd &lt;+1&gt;:   push   %rbx</div><div class="line">0x0000000000400efe &lt;+2&gt;:   sub    $0x28,%rsp  //%rsp-0x28</div><div class="line">0x0000000000400f02 &lt;+6&gt;:   mov    %rsp,%rsi   //%rsi的值设为%rsp的值</div><div class="line">0x0000000000400f05 &lt;+9&gt;:   callq  0x40145c &lt;read_six_numbers&gt; //读取六个数字，本题答案应为六个数字</div></pre></td></tr></table></figure></p>
+<p>(%rsp)中存放的值和0x1比较，如果相等，则跳转到<phase_2+52>，否则爆炸，所以第一个数字是1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">0x0000000000400f0a &lt;+14&gt;:  cmpl   $0x1,(%rsp)</div><div class="line">0x0000000000400f0e &lt;+18&gt;:  je     0x400f30 &lt;phase_2+52&gt;</div></pre></td></tr></table></figure></phase_2+52></p>
+<p>接着跳到&lt;+52&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0x0000000000400f30 &lt;+52&gt;:  lea    0x4(%rsp),%rbx //寄存器%rsp指向的指针+4,然后赋值给%rbx</div><div class="line">0x0000000000400f35 &lt;+57&gt;:  lea    0x18(%rsp),%rbp //%rbp=%rsp+0x18</div><div class="line">0x0000000000400f3a &lt;+62&gt;:  jmp    0x400f17 &lt;phase_2+27&gt;</div></pre></td></tr></table></figure></p>
+<p><strong> 划重点</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">0x0000000000400f17 &lt;+27&gt;:  mov    -0x4(%rbx),%eax //刚刚+4的指针-4，也就是第一个输入的数字</div><div class="line">0x0000000000400f1a &lt;+30&gt;:  add    %eax,%eax//即%eax*=2，所以第二个数字是1*2=2</div><div class="line">0x0000000000400f1c &lt;+32&gt;:  cmp    %eax,(%rbx)</div><div class="line">0x0000000000400f1e &lt;+34&gt;:  je     0x400f25 &lt;phase_2+41&gt;</div><div class="line">0x0000000000400f20 &lt;+36&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div></pre></td></tr></table></figure></p>
+<p>&lt;+32&gt;比较 %eax,(%rbx)，假如相等，就跳转到<phase_2+41>，否则爆炸<br>所以其实这是一个循环，后一位数为前一个的两倍，所以答案是1 2 4 8 16 32</phase_2+41></p>
+<p><strong>完整的phase_2：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Dump of assembler code for function phase_2:</div><div class="line">=&gt; 0x0000000000400efc &lt;+0&gt;:   push   %rbp</div><div class="line">0x0000000000400efd &lt;+1&gt;:   push   %rbx</div><div class="line">0x0000000000400efe &lt;+2&gt;:   sub    $0x28,%rsp</div><div class="line">0x0000000000400f02 &lt;+6&gt;:   mov    %rsp,%rsi</div><div class="line">0x0000000000400f05 &lt;+9&gt;:   callq  0x40145c &lt;read_six_numbers&gt;</div><div class="line">0x0000000000400f0a &lt;+14&gt;:  cmpl   $0x1,(%rsp)</div><div class="line">0x0000000000400f0e &lt;+18&gt;:  je     0x400f30 &lt;phase_2+52&gt;</div><div class="line">0x0000000000400f10 &lt;+20&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x0000000000400f15 &lt;+25&gt;:  jmp    0x400f30 &lt;phase_2+52&gt;</div><div class="line">0x0000000000400f17 &lt;+27&gt;:  mov    -0x4(%rbx),%eax</div><div class="line">0x0000000000400f1a &lt;+30&gt;:  add    %eax,%eax</div><div class="line">0x0000000000400f1c &lt;+32&gt;:  cmp    %eax,(%rbx)</div><div class="line">0x0000000000400f1e &lt;+34&gt;:  je     0x400f25 &lt;phase_2+41&gt;</div><div class="line">0x0000000000400f20 &lt;+36&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x0000000000400f25 &lt;+41&gt;:  add    $0x4,%rbx</div><div class="line">0x0000000000400f29 &lt;+45&gt;:  cmp    %rbp,%rbx</div><div class="line">0x0000000000400f2c &lt;+48&gt;:  jne    0x400f17 &lt;phase_2+27&gt;</div><div class="line">0x0000000000400f2e &lt;+50&gt;:  jmp    0x400f3c &lt;phase_2+64&gt;</div><div class="line">0x0000000000400f30 &lt;+52&gt;:  lea    0x4(%rsp),%rbx</div><div class="line">0x0000000000400f35 &lt;+57&gt;:  lea    0x18(%rsp),%rbp</div><div class="line">0x0000000000400f3a &lt;+62&gt;:  jmp    0x400f17 &lt;phase_2+27&gt;</div><div class="line">0x0000000000400f3c &lt;+64&gt;:  add    $0x28,%rsp</div><div class="line">0x0000000000400f40 &lt;+68&gt;:  pop    %rbx</div><div class="line">0x0000000000400f41 &lt;+69&gt;:  pop    %rbp</div><div class="line">0x0000000000400f42 &lt;+70&gt;:  retq   </div><div class="line">End of assembler dump.</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>Phase_3</strong><br>这是一个switch语句，对应不同的case分支，有不同的答案。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">Dump of assembler code for function phase_3:</div><div class="line">=&gt; 0x0000000000400f43 &lt;+0&gt;:   sub    $0x18,%rsp</div><div class="line">0x0000000000400f47 &lt;+4&gt;:   lea    0xc(%rsp),%rcx</div><div class="line">0x0000000000400f4c &lt;+9&gt;:   lea    0x8(%rsp),%rdx</div><div class="line">0x0000000000400f51 &lt;+14&gt;:  mov    $0x4025cf,%esi</div><div class="line">0x0000000000400f56 &lt;+19&gt;:  mov    $0x0,%eax //%eax先设为0</div><div class="line">0x0000000000400f5b &lt;+24&gt;:  callq  0x400bf0 &lt;__isoc99_sscanf@plt&gt; //scanf，读入我们要输入的数的个数</div><div class="line">0x0000000000400f60 &lt;+29&gt;:  cmp    $0x1,%eax</div><div class="line">0x0000000000400f63 &lt;+32&gt;:  jg     0x400f6a &lt;phase_3+39&gt;</div><div class="line">0x0000000000400f65 &lt;+34&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x0000000000400f6a &lt;+39&gt;:  cmpl   $0x7,0x8(%rsp)</div><div class="line">0x0000000000400f6f &lt;+44&gt;:  ja     0x400fad &lt;phase_3+106&gt;</div><div class="line">0x0000000000400f71 &lt;+46&gt;:  mov    0x8(%rsp),%eax</div><div class="line">0x0000000000400f75 &lt;+50&gt;:  jmpq   *0x402470(,%rax,8)</div><div class="line">0x0000000000400f7c &lt;+57&gt;:  mov    $0xcf,%eax</div><div class="line">0x0000000000400f81 &lt;+62&gt;:  jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400f83 &lt;+64&gt;:  mov    $0x2c3,%eax</div><div class="line">0x0000000000400f88 &lt;+69&gt;:  jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400f8a &lt;+71&gt;:  mov    $0x100,%eax</div><div class="line">0x0000000000400f8f &lt;+76&gt;:  jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400f91 &lt;+78&gt;:  mov    $0x185,%eax</div><div class="line">0x0000000000400f96 &lt;+83&gt;:  jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400f98 &lt;+85&gt;:  mov    $0xce,%eax</div><div class="line">0x0000000000400f9d &lt;+90&gt;:  jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400f9f &lt;+92&gt;:  mov    $0x2aa,%eax</div><div class="line">0x0000000000400fa4 &lt;+97&gt;:  jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400fa6 &lt;+99&gt;:  mov    $0x147,%eax</div><div class="line">0x0000000000400fab &lt;+104&gt;: jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400fad &lt;+106&gt;: callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x0000000000400fb2 &lt;+111&gt;: mov    $0x0,%eax</div><div class="line">0x0000000000400fb7 &lt;+116&gt;: jmp    0x400fbe &lt;phase_3+123&gt;</div><div class="line">0x0000000000400fb9 &lt;+118&gt;: mov    $0x137,%eax</div><div class="line">0x0000000000400fbe &lt;+123&gt;: cmp    0xc(%rsp),%eax</div><div class="line">0x0000000000400fc2 &lt;+127&gt;: je     0x400fc9 &lt;phase_3+134&gt;</div><div class="line">0x0000000000400fc4 &lt;+129&gt;: callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x0000000000400fc9 &lt;+134&gt;: add    $0x18,%rsp</div><div class="line">0x0000000000400fcd &lt;+138&gt;: retq   </div><div class="line">End of assembler dump.</div></pre></td></tr></table></figure></p>
+<p><code>mov    $0x4025cf,%esi</code>这个地址里的数据传进%esi，打印看看里面是什么<br><code>(gdb) x/sb 0x4025cf</code><br><code>0x4025cf:  &quot;%d %d&quot;</code>这样子就知道这道题我们要输入的数据的格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">0x0000000000400f56 &lt;+19&gt;:  mov    $0x0,%eax //%eax先设为0</div><div class="line">0x0000000000400f5b &lt;+24&gt;:  callq  0x400bf0 &lt;__isoc99_sscanf@plt&gt;</div><div class="line">0x0000000000400f60 &lt;+29&gt;:  cmp    $0x1,%eax</div><div class="line">0x0000000000400f63 &lt;+32&gt;:  jg     0x400f6a &lt;phase_3+39&gt;</div><div class="line">0x0000000000400f65 &lt;+34&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x0000000000400f6a &lt;+39&gt;:  cmpl   $0x7,0x8(%rsp)</div></pre></td></tr></table></figure>
+<p>看出case应该是0~7共八个数，否则爆炸。<br>假如我输入0，来到这里<br><code>0x0000000000400f75 &lt;+50&gt;: jmpq   *0x402470(,%rax,8)</code><br>看看0x402470对应哪个，我们来print一下<br><code>print *0x402470</code>,得到0x400f7c，也就是这一步<br><code>0x0000000000400f7c &lt;+57&gt;: mov    $0xcf,%eax</code>，0xcf就是207，所以其中一个答案是0 207。<br><code>0x0000000000400f75 &lt;+50&gt;:    jmpq   *0x402470(,%rax,8)</code>假如输入1，地址+8，。。。（待续）<br>0x0000000000400fb9 &lt;+118&gt;:    mov    $0x137,%eax</p>
+<p>Breakpoint 5, 0x000000000040100c in phase_4 ()<br>(gdb) disas<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">Dump of assembler code for function phase_4:</div><div class="line">=&gt; 0x000000000040100c &lt;+0&gt;:   sub    $0x18,%rsp</div><div class="line">0x0000000000401010 &lt;+4&gt;:   lea    0xc(%rsp),%rcx</div><div class="line">0x0000000000401015 &lt;+9&gt;:   lea    0x8(%rsp),%rdx</div><div class="line">0x000000000040101a &lt;+14&gt;:  mov    $0x4025cf,%esi</div><div class="line">0x000000000040101f &lt;+19&gt;:  mov    $0x0,%eax</div><div class="line">0x0000000000401024 &lt;+24&gt;:  callq  0x400bf0 &lt;__isoc99_sscanf@plt&gt;</div><div class="line">0x0000000000401029 &lt;+29&gt;:  cmp    $0x2,%eax</div><div class="line">0x000000000040102c &lt;+32&gt;:  jne    0x401035 &lt;phase_4+41&gt;</div><div class="line">0x000000000040102e &lt;+34&gt;:  cmpl   $0xe,0x8(%rsp)</div><div class="line">0x0000000000401033 &lt;+39&gt;:  jbe    0x40103a &lt;phase_4+46&gt;</div><div class="line">0x0000000000401035 &lt;+41&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x000000000040103a &lt;+46&gt;:  mov    $0xe,%edx</div><div class="line">0x000000000040103f &lt;+51&gt;:  mov    $0x0,%esi</div><div class="line">0x0000000000401044 &lt;+56&gt;:  mov    0x8(%rsp),%edi</div><div class="line">0x0000000000401048 &lt;+60&gt;:  callq  0x400fce &lt;func4&gt;</div><div class="line">0x000000000040104d &lt;+65&gt;:  test   %eax,%eax</div><div class="line">0x000000000040104f &lt;+67&gt;:  jne    0x401058 &lt;phase_4+76&gt;</div><div class="line">0x0000000000401051 &lt;+69&gt;:  cmpl   $0x0,0xc(%rsp)</div><div class="line">0x0000000000401056 &lt;+74&gt;:  je     0x40105d &lt;phase_4+81&gt;</div><div class="line">0x0000000000401058 &lt;+76&gt;:  callq  0x40143a &lt;explode_bomb&gt;</div><div class="line">0x000000000040105d &lt;+81&gt;:  add    $0x18,%rsp</div><div class="line">0x0000000000401061 &lt;+85&gt;:  retq   </div><div class="line">End of assembler dump.</div><div class="line">(gdb) (gdb) disas func4</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">Dump of assembler code for function func4:</div><div class="line">0x0000000000400fce &lt;+0&gt;:   sub    $0x8,%rsp</div><div class="line">0x0000000000400fd2 &lt;+4&gt;:   mov    %edx,%eax</div><div class="line">0x0000000000400fd4 &lt;+6&gt;:   sub    %esi,%eax</div><div class="line">0x0000000000400fd6 &lt;+8&gt;:   mov    %eax,%ecx</div><div class="line">0x0000000000400fd8 &lt;+10&gt;:  shr    $0x1f,%ecx</div><div class="line">0x0000000000400fdb &lt;+13&gt;:  add    %ecx,%eax</div><div class="line">0x0000000000400fdd &lt;+15&gt;:  sar    %eax</div><div class="line">0x0000000000400fdf &lt;+17&gt;:  lea    (%rax,%rsi,1),%ecx</div><div class="line">0x0000000000400fe2 &lt;+20&gt;:  cmp    %edi,%ecx</div><div class="line">0x0000000000400fe4 &lt;+22&gt;:  jle    0x400ff2 &lt;func4+36&gt;</div><div class="line">0x0000000000400fe6 &lt;+24&gt;:  lea    -0x1(%rcx),%edx</div><div class="line">0x0000000000400fe9 &lt;+27&gt;:  callq  0x400fce &lt;func4&gt;</div><div class="line">0x0000000000400fee &lt;+32&gt;:  add    %eax,%eax</div><div class="line">0x0000000000400ff0 &lt;+34&gt;:  jmp    0x401007 &lt;func4+57&gt;</div><div class="line">0x0000000000400ff2 &lt;+36&gt;:  mov    $0x0,%eax</div><div class="line">0x0000000000400ff7 &lt;+41&gt;:  cmp    %edi,%ecx</div><div class="line">0x0000000000400ff9 &lt;+43&gt;:  jge    0x401007 &lt;func4+57&gt;</div><div class="line">0x0000000000400ffb &lt;+45&gt;:  lea    0x1(%rcx),%esi</div><div class="line">0x0000000000400ffe &lt;+48&gt;:  callq  0x400fce &lt;func4&gt;</div><div class="line">0x0000000000401003 &lt;+53&gt;:  lea    0x1(%rax,%rax,1),%eax</div><div class="line">0x0000000000401007 &lt;+57&gt;:  add    $0x8,%rsp</div><div class="line">0x000000000040100b &lt;+61&gt;:  retq   </div><div class="line">End of assembler dump.</div></pre></td></tr></table></figure>
+<p>（待续）</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

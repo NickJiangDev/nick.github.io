@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      MVVM双向数据绑定(一):AngularJS脏数据检查 | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="1. 先行知识：MVVMMVVM 由以下三个内容组成：
+
+View：界面
+Model：数据模型
+ViewModel：作为桥梁负责沟通 View 和 Model
+
+在 JQuery 时期，如果需要刷新 UI 时，需要先取到对应的 DOM 再更新 UI，这样数据和业务的逻辑就和页面有强耦合。
+在 MVVM 中，UI 是通过数据驱动的，数据一旦改变就会相应的刷新对应的 UI，UI 如果改变，也会改变对应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVVM双向数据绑定(一):AngularJS脏数据检查 | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2018/11/15/AngularJS脏数据检查/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="1. 先行知识：MVVMMVVM 由以下三个内容组成：
+
+View：界面
+Model：数据模型
+ViewModel：作为桥梁负责沟通 View 和 Model
+
+在 JQuery 时期，如果需要刷新 UI 时，需要先取到对应的 DOM 再更新 UI，这样数据和业务的逻辑就和页面有强耦合。
+在 MVVM 中，UI 是通过数据驱动的，数据一旦改变就会相应的刷新对应的 UI，UI 如果改变，也会改变对应">
+<meta property="og:updated_time" content="2018-11-16T02:58:21.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MVVM双向数据绑定(一):AngularJS脏数据检查 | Cruyun's Blog">
+<meta name="twitter:description" content="1. 先行知识：MVVMMVVM 由以下三个内容组成：
+
+View：界面
+Model：数据模型
+ViewModel：作为桥梁负责沟通 View 和 Model
+
+在 JQuery 时期，如果需要刷新 UI 时，需要先取到对应的 DOM 再更新 UI，这样数据和业务的逻辑就和页面有强耦合。
+在 MVVM 中，UI 是通过数据驱动的，数据一旦改变就会相应的刷新对应的 UI，UI 如果改变，也会改变对应">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">MVVM双向数据绑定(一):AngularJS脏数据检查</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-11-15" class="post-meta__date date">2018-11-15</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/AngularJS/">AngularJS</a>, <a class="tags-link" href="/tags/Framework/">Framework</a>, <a class="tags-link" href="/tags/MVVM/">MVVM</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="1-先行知识：MVVM"><a href="#1-先行知识：MVVM" class="headerlink" title="1. 先行知识：MVVM"></a>1. 先行知识：MVVM</h2><p>MVVM 由以下三个内容组成：</p>
+<ul>
+<li>View：界面</li>
+<li>Model：数据模型</li>
+<li>ViewModel：作为桥梁负责沟通 View 和 Model</li>
+</ul>
+<p>在 JQuery 时期，如果需要刷新 UI 时，需要先取到对应的 DOM 再更新 UI，这样数据和业务的逻辑就和页面有强耦合。</p>
+<p>在 MVVM 中，UI 是通过<em>数据驱动</em>的，数据一旦改变就会相应的刷新对应的 <em>UI</em>，UI 如果改变，也会改变对应的数据。这种方式就可以在业务处理中只关心数据的流转，而无需直接和页面打交道。ViewModel 只关心数据和业务的处理，不关心 View 如何处理数据，在这种情况下，View 和 Model 都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个 ViewModel 中，让多个 View 复用这个 ViewModel。</p>
+<p>在 MVVM 中，最核心的也就是数据双向绑定，例如 Angluar 的脏数据检查，Vue 中的数据劫持。</p>
+<p>本文主要学习总结了Angluar 的脏数据检查。</p>
+<h2 id="2-脏检查机制"><a href="#2-脏检查机制" class="headerlink" title="2. 脏检查机制"></a>2. 脏检查机制</h2><p>双向数据绑定是 AngularJS 的核心机制之一。当 view 中有任何数据变化时，会更新到 model ，当 model 中数据有变化时，view 也会同步更新，显然，这需要一个监控。</p>
+<p>原理就是，Angular 在 scope 模型上设置了一个<em>监听队列</em>，用来<em>监听数据变化</em>并<em>更新 view</em> 。每次绑定一个东西到 view 上时 AngularJS 就会往 $watch 队列里插入<em>一条 $watch</em>，用来检测它监视的 <em>model</em> 里是否有变化的东西。当浏览器接收到可以被 <em>angular context</em> 处理的事件时，<em>$digest</em> 循环就会触发，遍历所有的 $watch，最后更新 dom。</p>
+<h3 id="2-1-scope"><a href="#2-1-scope" class="headerlink" title="2.1 $scope"></a>2.1 $scope</h3><blockquote>
+<p>Scopes are used for many different purposes:</p>
+<pre><code>  1. Sharing data between controllers and views
+2.  Sharing data between different parts of the application
+3. Broadcasting and listening for events
+4. Watching for changes in data
+</code></pre></blockquote>
+<p>可以看到，scope 才是双向数据绑定的核心部分，其中主要包含watch和digest的代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function Scope() &#123;</div><div class="line">    this.$$watchers = [];</div><div class="line">    this.$$lastDirtyWatch = null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Scope类中包含一个$$watchers对象数组，该数组用于保存各数据变量的监听器。（在Angular框架中，双美元符前缀$$表示这个变量被当作私有的来考虑，不应当在外部代码中调用。）</p>
+<p>$watch 方法用于创建监听器并绑定至当前作用域，接受两个函数做参数，把他们存储在 watchers 数组中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">scope.prototype.$watch = function(name, getNewValue, listener)&#123;</div><div class="line">    var watch = &#123;</div><div class="line">       name: name,</div><div class="line">       getNewValue: getNewValue,</div><div class="line">       listener : listener || function()&#123;&#125;,</div><div class="line">		 last: &apos;&apos;,</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    this.$$watchList.push(watch);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>getNewValue 函数每次放回最新值。</p>
+<h3 id="2-1-2-scope"><a href="#2-1-2-scope" class="headerlink" title="2.1.2 $scope"></a>2.1.2 $scope</h3><p>下面是$digest 函数，它执行了所有在作用域上注册的监听器，对监视器的新旧值进行对比，当新旧值不同时，调用listener函数进行相应操作，并将旧值更新为新值。它将不断重复这一过程，直到所有数据变量的新旧值相等：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Scope.prototype.$digest = function() &#123;</div><div class="line">    var dirty = true;</div><div class="line">    while(dirty)&#123;</div><div class="line">        dirty = false;</div><div class="line">        for(var i = 0; i &lt; this.$$watchers.length; i++)&#123;</div><div class="line">            var newVal = this.$$watchers[i].getNewValue();</div><div class="line">            var oldVal = this.$$watchers[i].last;</div><div class="line"></div><div class="line">            if(newVal! == oldVal)&#123;</div><div class="line">                dirty = true;</div><div class="line">                this.$$watchers[i].listener(oldVal,newVal);</div><div class="line">                this.$$watchers[i].last = newVal;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>对于每一个watch,我们使用 getNewValue() 并且把scope实例传递进去，得到数据最新值 。然后和上一次值进行比较，如果不同，那就调用 listener，同时把新值和旧值一并传递进去。 最终，我们把last 属性设置为新返回的值，也就是最新值。<br>这个$digest 再一次调用，last 为undefined，所以一定会进行一次数据呈现。</p>
+<p><em>$digest 循环的上限是 10 次</em>（超过 10次后抛出一个异常，防止无限循环）。</p>
+<p>$digest 循环不会只运行一次。在当前的一次循环结束后，它会再执行一次循环用来检查是否有 models 发生了变化。</p>
+<p>这就是脏检查（Dirty Checking），它用来处理在 listener 函数被执行时可能引起的 model 变化。因此 $digest 循环会持续运行直到 model 不再发生变化，或者 $digest 循环的次数达到了 10 次（超过 10 次后抛出一个异常，防止无限循环）。</p>
+<p>当 $digest 循环结束时，DOM 相应地变化。</p>
+<h3 id="eval、-apply和-evalAsync"><a href="#eval、-apply和-evalAsync" class="headerlink" title="$eval、$apply和$evalAsync"></a>$eval、$apply和$evalAsync</h3><h4 id="eval"><a href="#eval" class="headerlink" title="$eval"></a>$eval</h4><p>$eval的作用是在scope中执行给出的表达式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Scope.prototype.$eval = function(expr, locals) &#123; </div><div class="line">	return expr(this, locals);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="apply"><a href="#apply" class="headerlink" title="$apply"></a>$apply</h4><p>$apply作用是将外部js代码引入到scope的digest环节来。这个方法可能是非常广为人知的一个方法。尤其是用jquery处理数据更新数据，ajax获取数据更新view什么的。</p>
+<p>它实际上调用了$.eval，然后手动触发了digest,代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Scope.prototype.$apply = function(expr) &#123; </div><div class="line">	try &#123;</div><div class="line">		return this.$eval(expr); </div><div class="line">	&#125; catch (e) &#123;</div><div class="line">		$exceptionHandler(e);</div><div class="line">	&#125; finally &#123;</div><div class="line">		this.$digest(); </div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>finally 在 try 和 catch 代码执行完毕后执行，不管这两个环节结果如何。</p>
+<p>实际上，AngularJS 并不直接调用 $digest()，而是调用 $scope.$apply()，后者会调用 $digest()。因此，一轮 $digest 循环在 $rootScope开始，随后会访问到所有的 children scope 中的 watchers。</p>
+<p>现在，假设你将 ng-click 指令关联到了一个 button 上，并传入了一个function 到 ng-click 上。当该button被点击时，AngularJS 会将此 function包装到一个 wrapping function 中，然后传入到 $scope.$apply()。因此，你的function会正常被执行，修改models(如果需要的话)，此时一轮$digest循环也会被触发，用来确保view也会被更新。</p>
+<p><em>Note:</em>  $scope.$apply()会自动地调用$rootScope.$digest()。$apply()方法有两种形式。第一种会接受一个function作为参数，执行该function并且触发一轮$digest循环。第二种会不接受任何参数，只是触发一轮$digest循环。</p>
+<h4 id="evalAsync"><a href="#evalAsync" class="headerlink" title="$evalAsync"></a>$evalAsync</h4><p>$evalAsync作用是代码延迟执行。setTimeout(function(){},0)是代码延迟执行其中一个办法。但是setTimeout的问题是一旦你使用了它，那么就等于完全放弃了对代码执行时机的控制——浏览器可能去渲染UI，可能去响应事件，直到很久以后才会执行指定的代码片段。$evalAsync更优于setTimeout，就是因为它在这个时机上控制得更好。</p>
+<p>利用以上三个方法，可以将控制$digest 循环的代码优化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">cope.prototype.$digest = function () &#123;</div><div class="line">    var ttl = 10;</div><div class="line">    var dirty;</div><div class="line">    this.$$lastDirtyWatch = null;</div><div class="line">    do &#123;</div><div class="line">        while (this.$$asyncQueue.length) &#123;</div><div class="line">            var asyncTask = this.$$asyncQueue.shift();</div><div class="line">            asyncTask.scope.$eval(asyncTask.expression);</div><div class="line">        &#125;</div><div class="line">        dirty = this.$$digestOnce();</div><div class="line">        if ((dirty || this.$$asyncQueue.length) &amp;&amp; !(ttl--)) &#123; //修改的代码</div><div class="line">            throw &quot;10 digest iterations reached&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125; while (dirty || this.$$asyncQueue.length);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这样，当 (dirty || this.$$asyncQueue.length)反复为true时候，就会tll累减，最后抛出错误终止。</p>
+<h3 id="什么时候手动调用-apply-方法"><a href="#什么时候手动调用-apply-方法" class="headerlink" title="什么时候手动调用$apply 方法"></a>什么时候手动调用$apply 方法</h3><p>取决于是否在 Angular 上下文环境（angular context）。</p>
+<p>AngularJS对此有着非常明确的要求，就是它只负责对发生于AngularJS上下文环境中的变更会做出自动地响应(即，在$apply()方法中发生的对于models的更改)。AngularJS的 built-in 指令就是这样做的，所以任何的model 变更都会被反映到 view 中。但是，如果你在AngularJS上下文之外的任何地方修改了 model，那么你就需要通过手动调用$apply()来通知AngularJS。这就像告诉AngularJS，你修改了一些models，希望AngularJS帮你触发watchers来做出正确的响应。</p>
+<p>典型的需要调用 $apply() 方法的场景是：</p>
+<ol>
+<li>使用了 JavaScript 中的 setTimeout() 来更新一个 scope model</li>
+<li>用指令设置一个 DOM 事件 listener 并且在该 listener 中修改了一些 models</li>
+</ol>
+<hr>
+<h3 id="如何优化脏检查与运行效率"><a href="#如何优化脏检查与运行效率" class="headerlink" title="如何优化脏检查与运行效率"></a>如何优化脏检查与运行效率</h3><p>脏检查效率是不高，但在非大量的检查下是可以接受的。所以在绑定大量表达式时请注意所绑定的表达式效率。建议注意一下几点：</p>
+<ol>
+<li>表达式（以及表达式所调用的函数）中少写太过复杂的逻辑</li>
+<li>不要连接太长的 filter（往往 filter 里都会遍历并且生成新数组）</li>
+<li>不要访问 DOM 元素。</li>
+</ol>
+<p>小结：</p>
+<ul>
+<li>脏检查是一种模型到视图的数据映射机制，由 $apply 或 $digest 触发。</li>
+<li>脏检查的范围是整个页面，不受区域或组件划分影响</li>
+<li>使用尽量简单的绑定表达式提升脏检查执行速度</li>
+<li>尽量减少页面上绑定表达式的个数（单次绑定和ng-if）</li>
+</ul>
+<p>另外，使用单次绑定减少绑定表达式数量、善用 ng-if 减少绑定表达式的数量、给 ng-repeat 手工添加 track by等也值得注意，此文不再细述。</p>
+<hr>
+<p>以上是我学习脏检查的粗略总结，错漏在所难免。谢谢你的阅读ღ( ´･ᴗ･` )</p>
+<p>参考：</p>
+<ul>
+<li><a href="http://www.que01.top/2016/05/07/a-simple-mvvm-framwork-1/" target="_blank" rel="external">MVVM的简单实现-脏检测 | Que’s Blog</a></li>
+<li><a href="https://www.cnblogs.com/likeFlyingFish/p/6183630.html" target="_blank" rel="external">AngularJS  脏检查深入分析 - 小精灵儿Pawn - 博客园</a></li>
+<li><a href="http://blog.51cto.com/zhoulujun/2105289" target="_blank" rel="external">再谈angularJS数据绑定机制及背后原理—angularJS常见问题总结-周陆军的的博客-51CTO博客</a></li>
+<li><a href="https://blog.csdn.net/dm_vincent/article/details/38705099" target="_blank" rel="external">理解Angular中的$apply()以及$digest() - dm_vincent的专栏 - CSDN博客</a></li>
+<li><a href="https://github.com/xufei/blog/issues/10" target="_blank" rel="external">Angular沉思录（一）数据绑定 #10</a></li>
+</ul>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      CSS-transform(2D) | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="前言及Transform 基本介绍MDN官方文档介绍：CSS中transform 属性允许你修改CSS可视化模型的坐标空间。通过transform，可以让元素进行移动（translate）、旋转（rotate）、缩放（scale）、拉伸（skew）。本文主要介绍2D transform的基本用法及其属性的原理。
+浏览器兼容性
+Internet Explorer 10、Firefox、Opera 支">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS-transform(2D) | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2017/03/12/CSS-Transform/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="前言及Transform 基本介绍MDN官方文档介绍：CSS中transform 属性允许你修改CSS可视化模型的坐标空间。通过transform，可以让元素进行移动（translate）、旋转（rotate）、缩放（scale）、拉伸（skew）。本文主要介绍2D transform的基本用法及其属性的原理。
+浏览器兼容性
+Internet Explorer 10、Firefox、Opera 支">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-041598d73a162de8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-589dae39b502d326.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-e0bfcd2edcdedd55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-242de94fa8b90ce1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-5d205362d2069c34.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-30b97e0090aae128.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-04-20T02:10:21.989Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS-transform(2D) | Cruyun's Blog">
+<meta name="twitter:description" content="前言及Transform 基本介绍MDN官方文档介绍：CSS中transform 属性允许你修改CSS可视化模型的坐标空间。通过transform，可以让元素进行移动（translate）、旋转（rotate）、缩放（scale）、拉伸（skew）。本文主要介绍2D transform的基本用法及其属性的原理。
+浏览器兼容性
+Internet Explorer 10、Firefox、Opera 支">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4938344-041598d73a162de8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">CSS-transform(2D)</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-03-12" class="post-meta__date date">2017-03-12</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/CSS/">CSS</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="前言及Transform-基本介绍"><a href="#前言及Transform-基本介绍" class="headerlink" title="前言及Transform 基本介绍"></a>前言及Transform 基本介绍</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform" target="_blank" rel="external">MDN官方文档</a>介绍：CSS中transform 属性允许你修改CSS可视化模型的坐标空间。通过transform，可以让元素进行移动（translate）、旋转（rotate）、缩放（scale）、拉伸（skew）。本文主要介绍2D transform的基本用法及其属性的原理。</p>
+<h2 id="浏览器兼容性"><a href="#浏览器兼容性" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h2><ul>
+<li>Internet Explorer 10、Firefox、Opera 支持 transform 属性</li>
+<li>Internet Explorer 9 支持替代的 -ms-transform 属性（仅适用于 2D 变换）。</li>
+<li>Safari 和 Chrome 支持替代的 -webkit-transform 属性（3D 和 2D 变换）。</li>
+<li>Opera 只支持 2D 变换。</li>
+</ul>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p><strong>skew</strong></p>
+<ul>
+<li><code>transform: skew(ax,ay)</code>元素在X轴和Y轴负方向以指定的角度拉伸</li>
+<li><code>transform: skew(ax)</code>元素在X轴负方向以指定的角度拉伸</li>
+<li><code>transform: skewX(ax)</code>在X轴负方向以指定的角度拉伸</li>
+<li><code>transform: skewY(ay)</code>在Y轴负方向以指定的角度拉伸<br>ax为x方向的角度，ay为y方向的角度，如：</li>
+<li><code>transform: skew(20deg, 20deg);</code></li>
+<li><code>transform: skew(2rad, 1.8rad);</code></li>
+<li><code>transform:  skew(20deg);</code></li>
+<li><code>transform:  skew(-20deg)</code><br><a href="http://codepen.io/cruyun/pen/wJdgdZ" target="_blank" rel="external">demo在此</a></li>
+</ul>
+<p><strong>rotate</strong></p>
+<p>绕着<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin" target="_blank" rel="external">Transform-origin</a>点顺时针旋转，中心点初始值为50% 50%</p>
+<ul>
+<li><code>transform: rotate(&lt;angle&gt;)</code></li>
+<li><code>transform: rotate(&#39;a&#39;turn)</code>角度为’a’ * 360°，’a’为小于1的数。例如<code>transform: rotate(0.5turn)</code>即<code>transform: rotate(180deg)</code><br><a href="http://codepen.io/cruyun/pen/mWmRxa" target="_blank" rel="external">demo在此</a></li>
+</ul>
+<p>skew和rotate的异同：</p>
+<ul>
+<li>接受的参数单位都是角度,如20deg，1rad；</li>
+<li>skew接受两个参数或一个参数，rotate的语法是：<code>transform: rotate(&lt;angle&gt;)</code>;</li>
+<li>skew会使元素变形，rotate不会</li>
+</ul>
+<p><strong>translate</strong></p>
+<ul>
+<li><code>transform:translate(tx[, ty])</code>在X轴\Y轴平移指定距离，用向量[tx, ty]完成2D平移，若没有ty则默认为0</li>
+<li><code>transform:translateX(tx)</code>沿X轴正方向平移指定距离</li>
+<li><code>transform:translateY(ty)</code>沿Y轴正方向平移指定距离<br>tx\ty的单位可以为px\百分比。<br><a href="http://codepen.io/cruyun/pen/aJWpjV" target="_blank" rel="external">demo在此</a></li>
+</ul>
+<p><strong>scale</strong></p>
+<ul>
+<li><code>transform:  scale(sx[, sy]);</code>由[sx, sy]描述指定一个二维缩放操作。如果sy 未指定，默认认为和<strong>sx的值相同</strong>。</li>
+<li><code>transform:  scaleX(sx);</code>使用向量[sx, 1] 完成在X方向上的缩放.</li>
+<li><p><code>transform:  scaleY(sy);</code>使用向量[1, sy] 完成在Y方向的缩放.<br>以<code>transform-origin</code>（初始值为50% 50%）为中心点进行缩放，向量坐标值大于1或小于-1时，在相应方向放大，坐标值处于区间（-1, 1）时缩小，值为1时不做变化。如果缩放向量的两个坐标是相等的，那么X和Y方向的缩放是均等的，所以元素的形状被保持。<br><a href="http://codepen.io/cruyun/pen/wJdgNv" target="_blank" rel="external">demo在此</a></p>
+<p>ps: <a href="https://codepen.io/cruyun/pen/LWyNPE" target="_blank" rel="external"> <code>transform: scale(-1)</code>可以实现180°镜像对称效果</a><br><img src="http://upload-images.jianshu.io/upload_images/4938344-041598d73a162de8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</li>
+</ul>
+<p><strong>matrix</strong></p>
+<ul>
+<li>语法：<code>transform: matrix(a, c, b, d, tx, ty)</code></li>
+<li><p>a, c, b, d是一个二维矩阵:<br> ┌ a     b ┐<br> └ c     d ┘<br> tx, ty就是基于X和Y坐标重新定位元素。</p>
+</li>
+<li><p>用法：设变换的中心点为（x，y）,长度值tx、ty创建向量[tx,ty]，a,b,c,d,tx,ty创建矩阵<br><img src="http://upload-images.jianshu.io/upload_images/4938344-589dae39b502d326.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</li>
+</ul>
+<p>变换后的中心点坐标(x’, y’)   <img src="http://upload-images.jianshu.io/upload_images/4938344-e0bfcd2edcdedd55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>举个例子：<code>transform: matrix(1, 0, 0, 1, 20,  20)</code> 变换后的中心点横纵坐标:x’ = 1 <em> 0 + 0 </em> 0 + 20 = 20, y’ = 0 <em> 0 + 0 </em> 1 + 20 = 20，中心点坐标(0, 0) → (20, 20)<br><a href="http://codepen.io/cruyun/pen/wJdgNv" target="_blank" rel="external">demo</a><br>因为中心点坐标初始值为(0, 0)，则变换后的中心点坐标为(tx, ty)，相当于用向量[tx,ty]进行坐标变换。<code>transform:matrix(a, c, b, d, tx, ty)</code>的变换效果等同于<code>transform: translate(tx, ty)</code>, abcd的值与变换无关。<br>注意translate的参数需要单位，而matrix的参数的单位可省略。</p>
+<h2 id="Matrix与skew、scale、rotate、translate"><a href="#Matrix与skew、scale、rotate、translate" class="headerlink" title="Matrix与skew、scale、rotate、translate"></a>Matrix与skew、scale、rotate、translate</h2><p><strong>skew与matrix</strong>、</p>
+<p><code>transform: matrix(1 tan(θy) tan(θx) 1 0 0)</code>的变换效果等同于<code>transform: skew( α + θx,  β + θy)</code><br>设元素的原坐标为(x, y)，进行matrix变换：<img src="http://upload-images.jianshu.io/upload_images/4938344-242de94fa8b90ce1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>变换后的横坐标x’ = x+y<em>tan(θx) ，纵坐标y’ = x</em>tan(θy)+y</p>
+<p><strong>scale与matrix</strong></p>
+<p><code>transform: matrix(sx 0 0 sy 0 0)</code>的变换效果等同于 <code>transform: scale(sx, sy)</code><br>设元素的原坐标为(x, y)，进行matrix变换：<img src="http://upload-images.jianshu.io/upload_images/4938344-5d205362d2069c34.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>变换后的元素坐标为(sx <em> x; sy </em> y)，即x和y变为原来的sx、sy倍。</p>
+<p><strong>rotate与matrix</strong></p>
+<p><code>transform: matrix(cosα sinα -sinα cosα 0 0)</code>的变换效果等同于<code>transform: rotate(α)</code><br>设元素的原坐标为(x, y)，进行matrix变换：<img src="http://upload-images.jianshu.io/upload_images/4938344-30b97e0090aae128.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>变换后的横纵坐标分别为x’ = x <em> cosα - y </em> sinα, y’ = x <em> sinα + y </em> cosα</p>
+<p><strong>translate与matrix</strong></p>
+<p><code>transform: matrix(1 0 0 1 tx ty)</code>的变换效果等同于<code>transform: translate(tx, ty)</code>,上文已证。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

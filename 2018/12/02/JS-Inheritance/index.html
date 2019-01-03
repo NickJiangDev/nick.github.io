@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JS继承 | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="prototype vs __proto__vs constructor
+The prototype  is a property on a constructor function that sets what will become the __proto__ property on the constructed object.
+
+prototype是构造函数上的一个属性，而__proto_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS继承 | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2018/12/02/JS-Inheritance/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="prototype vs __proto__vs constructor
+The prototype  is a property on a constructor function that sets what will become the __proto__ property on the constructed object.
+
+prototype是构造函数上的一个属性，而__proto_">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw690/9f2b0190ly1fxs64yhzl2j21l10h10wn.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/mw690/9f2b0190ly1fxs64vxkoqj20g4082dg5.jpg">
+<meta property="og:updated_time" content="2018-12-02T02:44:00.997Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS继承 | Cruyun's Blog">
+<meta name="twitter:description" content="prototype vs __proto__vs constructor
+The prototype  is a property on a constructor function that sets what will become the __proto__ property on the constructed object.
+
+prototype是构造函数上的一个属性，而__proto_">
+<meta name="twitter:image" content="https://wx3.sinaimg.cn/mw690/9f2b0190ly1fxs64yhzl2j21l10h10wn.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JS继承</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-12-02" class="post-meta__date date">2018-12-02</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tags-link" href="/tags/继承/">继承</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="prototype-vs-proto-vs-constructor"><a href="#prototype-vs-proto-vs-constructor" class="headerlink" title="prototype vs __proto__vs constructor"></a>prototype vs <code>__proto__</code>vs constructor</h2><blockquote>
+<p>The <code>prototype</code>  is a property on a constructor function that sets what will become the <code>__proto__</code> property on the constructed object.</p>
+</blockquote>
+<p><code>prototype</code>是构造函数上的一个属性，而<code>__proto__</code>指向原型函数的 <code>prototype</code>。</p>
+<p>第一个题目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function MyConstructor() &#123;&#125;;</div><div class="line">(MyConstructor.__proto__ === MyConstructor.prototype); //false?! why?</div></pre></td></tr></table></figure>
+<p><code>MyConstructor</code>是一个函数（对象），其<code>__proto__</code>应该指向 <code>Funciton.prototype</code>。</p>
+<p>那么<code>MyConstructor.__proto__ === Function.prototype</code>则是 true。</p>
+<p>来看下面一个题目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;&#125;;</div><div class="line">var arr = [];</div><div class="line">var fun = function() &#123;&#125;;    </div><div class="line">   </div><div class="line">console.log(obj.prototype);</div><div class="line">console.log(arr.prototype);</div><div class="line">console.log(fun.prototype);</div><div class="line"></div><div class="line">console.log(arr.__proto__);</div><div class="line">console.log(fun.__proto__);</div><div class="line"></div><div class="line">// JS 中一切皆对象，所以以下都为 object</div><div class="line">console.log(obj.__proto__);</div><div class="line">console.log(arr.__proto__.__proto__);</div><div class="line">console.log(fun.__proto__.__proto__);</div><div class="line">console.log(fun.prototype.__proto__);</div></pre></td></tr></table></figure>
+<p><img src="https://wx3.sinaimg.cn/mw690/9f2b0190ly1fxs64yhzl2j21l10h10wn.jpg" alt=""></p>
+<p>ps： In the <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm" target="_blank" rel="external">Standard ECMA-2625.1 spec</a>, the term [[Prototype]] is used.  And that’s the same as <code>__proto__</code>.</p>
+<h4 id="constructor："><a href="#constructor：" class="headerlink" title="constructor："></a>constructor：</h4><p>每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;...&#125;</div><div class="line">console.log(Person === Person.prototype.constructor); // true</div></pre></td></tr></table></figure>
+<p>综上可以得出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;...&#125;</div><div class="line">var person = new Person();</div><div class="line"></div><div class="line">console.log(person.__proto__ == Person.prototype) // true</div><div class="line">console.log(Person.prototype.constructor == Person) // true</div><div class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</div><div class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</div></pre></td></tr></table></figure>
+<p><img src="https://wx2.sinaimg.cn/mw690/9f2b0190ly1fxs64vxkoqj20g4082dg5.jpg" alt=""></p>
+<h3 id="原型链："><a href="#原型链：" class="headerlink" title="原型链："></a>原型链：</h3><p>每个实例对象（object ）都有一个私有属性（称之为<strong>proto</strong>）指向它的原型对象（prototype）。该原型对象也有一个自己的原型对象(<strong>proto</strong>) ，层层向上直到一个对象的原型对象为 null。根据定义，null 没有原型，并作为这个原型链中的最后一个环节。</p>
+<p>JavaScript 对象是动态的属性“包”（指其自己的属性），它有一个指向一个原型对象的链。当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。</p>
+<p>因此，当你执行：<code>var o = new Foo();</code> JavaScript 实际上执行的是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var o = new Object();</div><div class="line">o.__proto__ = Foo.prototype;</div><div class="line">Foo.call(o);</div></pre></td></tr></table></figure>
+<p>（或者类似上面这样的），然后当你执行：<code>o.someProp;</code><br>它检查o是否具有someProp属性。如果没有，它会查找 <code>Object.getPrototypeOf(o).someProp</code>，如果仍旧没有，它会继续查找 <code>Object.getPrototypeOf(Object.getPrototypeOf(o)).someProp</code>。</p>
+<p>Ps: 每一个函数对象（Function）都有一个 prototype 属性，并且只有函数对象有 prototype 属性，因为 prototype 本身就是定义在 Function 对象下的属性</p>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><h3 id="1-使用语法结构"><a href="#1-使用语法结构" class="headerlink" title="1. 使用语法结构"></a>1. 使用语法结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">var o = &#123;a: 1&#125;;</div><div class="line"></div><div class="line">// o 这个对象继承了Object.prototype上面的所有属性</div><div class="line">// o 自身没有名为 hasOwnProperty 的属性</div><div class="line">// hasOwnProperty 是 Object.prototype 的属性</div><div class="line">// 因此 o 继承了 Object.prototype 的 hasOwnProperty</div><div class="line">// Object.prototype 的原型为 null</div><div class="line">// 原型链如下:</div><div class="line">// o ---&gt; Object.prototype ---&gt; null</div><div class="line"></div><div class="line">var a = [&quot;yo&quot;, &quot;whadup&quot;, &quot;?&quot;];</div><div class="line"></div><div class="line">// 数组都继承于 Array.prototype </div><div class="line">// (Array.prototype 中包含 indexOf, forEach等方法)</div><div class="line">// 原型链如下:</div><div class="line">// a ---&gt; Array.prototype ---&gt; Object.prototype ---&gt; null</div><div class="line"></div><div class="line">function f()&#123;</div><div class="line">  return 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 函数都继承于Function.prototype</div><div class="line">// (Function.prototype 中包含 call, bind等方法)</div><div class="line">// 原型链如下:</div><div class="line">// f ---&gt; Function.prototype ---&gt; Object.prototype ---&gt; null</div></pre></td></tr></table></figure>
+<h3 id="2-构造器-：使用-new-操作符"><a href="#2-构造器-：使用-new-操作符" class="headerlink" title="2. 构造器 ：使用 new 操作符"></a>2. 构造器 ：使用 new 操作符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function Graph() &#123;</div><div class="line">  this.vertices = [];</div><div class="line">  this.edges = [];</div><div class="line">&#125;</div><div class="line"></div><div class="line">Graph.prototype = &#123;</div><div class="line">  addVertex: function(v)&#123;</div><div class="line">    this.vertices.push(v);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var g = new Graph();</div><div class="line">// g是生成的对象,他的自身属性有&apos;vertices&apos;和&apos;edges&apos;.</div><div class="line">// 在g被实例化时,g.[[Prototype]]指向了Graph.prototype.</div></pre></td></tr></table></figure>
+<h3 id="3-Object-create"><a href="#3-Object-create" class="headerlink" title="3. Object.create()"></a>3. Object.create()</h3><p>ECMAScript 5 中引入了一个新方法：Object.create()。可以调用这个方法来创建一个新对象。新对象的原型就是调用 create 方法时传入的第一个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var foo = &#123;one: 1, two: 2&#125;;</div><div class="line"></div><div class="line">// bar.[[prototype]] = foo</div><div class="line">var bar = Object.create(foo);</div><div class="line"></div><div class="line">bar.three = 3;</div><div class="line"></div><div class="line">bar.one; // 1</div><div class="line">bar.two; // 2</div><div class="line">bar.three; // 3</div></pre></td></tr></table></figure>
+<h3 id="4-class-关键字"><a href="#4-class-关键字" class="headerlink" title="4. class 关键字"></a>4. class 关键字</h3><p>ECMAScript6 引入了一套新的关键字用来实现 class。使用基于类语言的开发人员会对这些结构感到熟悉，但它们是不同的。JavaScript 仍然基于原型。这些新的关键字包括 class, constructor，static，extends 和 super。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class Polygon &#123;</div><div class="line">  constructor(height, width) &#123;</div><div class="line">    this.height = height;</div><div class="line">    this.width = width;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Square extends Polygon &#123;</div><div class="line">  constructor(sideLength) &#123;</div><div class="line">    super(sideLength, sideLength);</div><div class="line">  &#125;</div><div class="line">  get area() &#123;</div><div class="line">    return this.height * this.width;</div><div class="line">  &#125;</div><div class="line">  set sideLength(newLength) &#123;</div><div class="line">    this.height = newLength;</div><div class="line">    this.width = newLength;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var square = new Square(2);</div></pre></td></tr></table></figure>
+<h2 id="JS-继承"><a href="#JS-继承" class="headerlink" title="JS 继承"></a>JS 继承</h2><p>几乎所有 JavaScript 中的对象都是位于原型链顶端的Object的实例。</p>
+<p>当继承的函数被调用时，this 指向的是当前继承的对象，而不是继承的函数所在的原型对象。</p>
+<blockquote>
+<p>继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些。 —《你不知道的JavaScript》</p>
+</blockquote>
+<h3 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function Parent () &#123;</div><div class="line">    this.name = &apos;kevin&apos;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Parent.prototype.getName = function () &#123;</div><div class="line">    console.log(this.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Child () &#123;...&#125;</div><div class="line">Child.prototype = new Parent();</div><div class="line">var child1 = new Child();</div><div class="line">console.log(child1.getName()) // kevin</div></pre></td></tr></table></figure>
+<p>问题：</p>
+<ol>
+<li><p>引用类型的属性被所有实例共享，举个例子：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function Parent () &#123;</div><div class="line">   	this.names = [&apos;kevin&apos;, &apos;daisy&apos;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Child () &#123;...&#125;</div><div class="line">Child.prototype = new Parent();</div><div class="line">var child1 = new Child();</div><div class="line"></div><div class="line">child1.names.push(&apos;yayu&apos;);</div><div class="line">console.log(child1.names); // [&quot;kevin&quot;, &quot;daisy&quot;, &quot;yayu&quot;]</div><div class="line"></div><div class="line">var child2 = new Child();</div><div class="line">console.log(child2.names); // [&quot;kevin&quot;, &quot;daisy&quot;, &quot;yayu&quot;]</div></pre></td></tr></table></figure>
+</li>
+<li><p>在创建 Child 的实例时，不能向Parent传参</p>
+</li>
+</ol>
+<h3 id="2-借用构造函数-Classical-Inheritance"><a href="#2-借用构造函数-Classical-Inheritance" class="headerlink" title="2.借用构造函数 Classical Inheritance"></a>2.借用构造函数 Classical Inheritance</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function Parent () &#123;</div><div class="line">    this.names = [&apos;kevin&apos;, &apos;daisy&apos;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Child () &#123;</div><div class="line">    Parent.call(this);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var child1 = new Child();</div><div class="line">child1.names.push(&apos;yayu&apos;);</div><div class="line">console.log(child1.names); // [&quot;kevin&quot;, &quot;daisy&quot;, &quot;yayu&quot;]</div><div class="line"></div><div class="line">var child2 = new Child();</div><div class="line">console.log(child2.names); // [&quot;kevin&quot;, &quot;daisy&quot;]</div></pre></td></tr></table></figure>
+<p>优点：</p>
+<ol>
+<li>避免了引用类型的属性被所有实例共享</li>
+<li>可以在 Child 中向 Parent 传参，例如：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function Parent (name) &#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Child (name) &#123;</div><div class="line">    Parent.call(this, name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var child1 = new Child(&apos;kevin&apos;);</div><div class="line">console.log(child1.name); // kevin</div><div class="line"></div><div class="line">var child2 = new Child(&apos;daisy&apos;);</div><div class="line">console.log(child2.name); // daisy</div></pre></td></tr></table></figure>
+<p>缺点：方法都在构造函数中定义，每次创建实例都会创建一遍方法。</p>
+<h3 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3. 组合继承"></a>3. 组合继承</h3><p>原型链继承和经典继承双剑合璧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">function Parent (name) &#123;</div><div class="line">    this.name = name;</div><div class="line">    this.colors = [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">Parent.prototype.getName = function () &#123;</div><div class="line">    console.log(this.name)</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Child (name, age) &#123;</div><div class="line">    Parent.call(this, name);</div><div class="line">    this.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Child.prototype = new Parent();</div><div class="line">Child.prototype.constructor = Child;</div><div class="line"></div><div class="line">var child1 = new Child(&apos;kevin&apos;, &apos;18&apos;);</div><div class="line">child1.colors.push(&apos;black&apos;);</div><div class="line"></div><div class="line">console.log(child1.name); // kevin</div><div class="line">console.log(child1.age); // 18</div><div class="line">console.log(child1.colors); // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]</div><div class="line"></div><div class="line">var child2 = new Child(&apos;daisy&apos;, &apos;20&apos;);</div><div class="line">console.log(child2.name); // daisy</div><div class="line">console.log(child2.age); // 20</div><div class="line">console.log(child2.colors); // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]</div></pre></td></tr></table></figure>
+<p>优点：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。</p>
+<h3 id="4-原型式继承-Prototypal-Inheritance"><a href="#4-原型式继承-Prototypal-Inheritance" class="headerlink" title="4. 原型式继承 Prototypal Inheritance"></a>4. 原型式继承 Prototypal Inheritance</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function createObj(o) &#123;</div><div class="line">    function F()&#123;&#125;</div><div class="line">    F.prototype = o;</div><div class="line">    return new F();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>就是 ES5 Object.create 的模拟实现，将传入的对象作为创建的对象的原型。</p>
+<p>缺点：包含引用类型的属性值始终都会共享相应的值，这点跟原型链继承一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var person = &#123;</div><div class="line">    name: &apos;kevin&apos;,</div><div class="line">    friends: [&apos;daisy&apos;, &apos;kelly&apos;]</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person1 = createObj(person);</div><div class="line">var person2 = createObj(person);</div><div class="line"></div><div class="line">person1.name = &apos;person1&apos;;</div><div class="line">console.log(person2.name); // kevin</div><div class="line"></div><div class="line">person1.firends.push(&apos;taylor&apos;);</div><div class="line">console.log(person2.friends); // [&quot;daisy&quot;, &quot;kelly&quot;, &quot;taylor&quot;]</div></pre></td></tr></table></figure>
+<p>注意：修改person1.name的值，person2.name的值并未发生改变，并不是因为person1和person2有独立的 name 值，而是因为<code>person1.name = &#39;person1&#39;</code>，给person1添加了 name 值，并非修改了原型上的 name 值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">person1.__proto__.name = &quot;person1&quot;</div><div class="line">console.log(person2.name); // person1</div></pre></td></tr></table></figure>
+<p><strong>Object.setPrototypeOf()</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var foo = &#123;name: &quot;foo&quot;, one: 1, two: 2&#125;;</div><div class="line">var bar = &#123;two: &quot;two&quot;, three: 3&#125;;</div><div class="line"></div><div class="line">Object.setPrototypeOf(bar, foo); // foo is now the prototype of bar.</div><div class="line"></div><div class="line">console.log(bar.one) // Resolves to 1.</div><div class="line"></div><div class="line">// The child object&apos;s properties are also accessible.</div><div class="line">console.log(bar.three) // Resolves to 3.</div><div class="line"></div><div class="line">// Own properties shadow prototype properties</div><div class="line">console.log(bar.two); // Resolves to &quot;two&quot;</div><div class="line">console.log(bar.name); // unaffected, resolves to &quot;foo&quot;</div><div class="line">console.log(foo.name); // Resolves to &quot;foo&quot;</div></pre></td></tr></table></figure>
+<h4 id="5-寄生式继承"><a href="#5-寄生式继承" class="headerlink" title="5. 寄生式继承"></a>5. 寄生式继承</h4><p>创建一个仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function createObj (o) &#123;</div><div class="line">    var clone = Object.create(o);</div><div class="line">    clone.sayName = function () &#123;</div><div class="line">        console.log(&apos;hi&apos;);</div><div class="line">    &#125;</div><div class="line">    return clone;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>缺点：跟借用构造函数模式一样，每次创建对象都会创建一遍方法。</p>
+<h4 id="6-寄生组合式继承"><a href="#6-寄生组合式继承" class="headerlink" title="6. 寄生组合式继承"></a>6. 寄生组合式继承</h4><p>回忆一下组合继承的代码，组合继承最大的缺点是会调用两次父构造函数。</p>
+<p>一次是设置子类型实例的原型的时候：<code>Child.prototype = new Parent();</code> 一次在创建子类型实例的时候：<code>var child1 = new Child(&#39;kevin&#39;, &#39;18&#39;);</code>其实在这句中，我们会执行 <code>Parent.call(this, name);</code></p>
+<p>在这里，我们又会调用了一次 Parent 构造函数。</p>
+<p>所以，在这个例子中，如果我们打印 child1 对象，我们会发现 Child.prototype 和 child1 都有一个属性为colors，属性值为<code>[‘red&#39;, &#39;blue&#39;, &#39;green&#39;]</code>。那么我们该如何精益求精，避免这一次重复调用呢？</p>
+<p>如果我们不使用 <code>Child.prototype = new Parent()</code>，而是间接的让 <code>Child.prototype</code>访问到 <code>Parent.prototype</code> 呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">function Parent (name) &#123;</div><div class="line">    this.name = name;</div><div class="line">    this.colors = [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">Parent.prototype.getName = function () &#123;</div><div class="line">    console.log(this.name)</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Child (name, age) &#123;</div><div class="line">    Parent.call(this, name);</div><div class="line">    this.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 关键的三步</div><div class="line">var F = function () &#123;&#125;;</div><div class="line"></div><div class="line">F.prototype = Parent.prototype;</div><div class="line"></div><div class="line">Child.prototype = new F();</div><div class="line"></div><div class="line"></div><div class="line">var child1 = new Child(&apos;kevin&apos;, &apos;18&apos;);</div><div class="line"></div><div class="line">console.log(child1);</div><div class="line">最后我们封装一下这个继承方法：</div><div class="line"></div><div class="line">function object(o) &#123;</div><div class="line">    function F() &#123;&#125;</div><div class="line">    F.prototype = o;</div><div class="line">    return new F();</div><div class="line">&#125;</div><div class="line"></div><div class="line">function prototype(child, parent) &#123;</div><div class="line">    var prototype = object(parent.prototype);</div><div class="line">    prototype.constructor = child;</div><div class="line">    child.prototype = prototype;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 当我们使用的时候：</div><div class="line">prototype(Child, Parent);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方式的高效率体现它只调用了一次 Parent 构造函数，并且因此避免了在 Parent.prototype 上面创建不必要的、多余的属性。与此同时，原型链还能保持不变；因此，还能够正常使用 instanceof 和 isPrototypeOf。开发人员普遍认为寄生组合式继承是引用类型最理想的继承范式。 ——《JavaScript高级程序设计》</p>
+</blockquote>
+<p>Reference:</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/9451881/prototype-vs-prototype-what-is-the-difference-mycons-proto-myco" target="_blank" rel="external">prototype vc prototypr —Satckoverflow</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto" target="_blank" rel="external">Object.prototype.<strong>proto</strong></a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">继承与原型链 —MDN</a></li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="external">JavaScript深入之从原型到原型链 · Issue #2 · mqyqingfeng/Blog · GitHub</a></li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/16" target="_blank" rel="external">JavaScript深入之继承的多种方式和优缺点 · Issue #16 · mqyqingfeng/Blog · GitHub</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf" target="_blank" rel="external">Object.setPrototypeOf() - JavaScript | MDN</a></li>
+</ul>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

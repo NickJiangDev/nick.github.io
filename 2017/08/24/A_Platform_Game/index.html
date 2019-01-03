@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Eloquent JavaScript学习笔记 A Platform Game | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="本章介绍了如何实现一个简单的平台游戏。在这个二维游戏中，控制玩家（红色方块）前进、后退、跳跃来收集所有金币（黄色方块），并且避免碰到熔浆（红色方块）。使用浏览器的DOM来展示游戏界面，通过处理按键事件来读取用户输入，游戏的固定场景用table存储，可移动的物体position:absolute。最后面学习第十六章的内容使用了&amp;lt;canvas&amp;gt;标签来绘制图像直接处理形状和像素。
+
+1.关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eloquent JavaScript学习笔记 A Platform Game | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2017/08/24/A_Platform_Game/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="本章介绍了如何实现一个简单的平台游戏。在这个二维游戏中，控制玩家（红色方块）前进、后退、跳跃来收集所有金币（黄色方块），并且避免碰到熔浆（红色方块）。使用浏览器的DOM来展示游戏界面，通过处理按键事件来读取用户输入，游戏的固定场景用table存储，可移动的物体position:absolute。最后面学习第十六章的内容使用了&amp;lt;canvas&amp;gt;标签来绘制图像直接处理形状和像素。
+
+1.关">
+<meta property="og:image" content="http://eloquentjavascript.net/img/darkblue.png">
+<meta property="og:updated_time" content="2017-12-04T12:52:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Eloquent JavaScript学习笔记 A Platform Game | Cruyun's Blog">
+<meta name="twitter:description" content="本章介绍了如何实现一个简单的平台游戏。在这个二维游戏中，控制玩家（红色方块）前进、后退、跳跃来收集所有金币（黄色方块），并且避免碰到熔浆（红色方块）。使用浏览器的DOM来展示游戏界面，通过处理按键事件来读取用户输入，游戏的固定场景用table存储，可移动的物体position:absolute。最后面学习第十六章的内容使用了&amp;lt;canvas&amp;gt;标签来绘制图像直接处理形状和像素。
+
+1.关">
+<meta name="twitter:image" content="http://eloquentjavascript.net/img/darkblue.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Eloquent JavaScript学习笔记 A Platform Game</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-08-24" class="post-meta__date date">2017-08-24</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript/">JavaScript</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p><img src="http://eloquentjavascript.net/img/darkblue.png" alt=""></p>
+<p>本章介绍了如何实现一个简单的平台游戏。在这个二维游戏中，控制玩家（红色方块）前进、后退、跳跃来收集所有金币（黄色方块），并且避免碰到熔浆（红色方块）。使用浏览器的DOM来展示游戏界面，通过处理按键事件来读取用户输入，游戏的固定场景用table存储，可移动的物体<code>position:absolute</code>。最后面学习第十六章的内容使用了<code>&lt;canvas&gt;</code>标签来绘制图像直接处理形状和像素。</p>
+<hr>
+<h2 id="1-关卡"><a href="#1-关卡" class="headerlink" title="1.关卡"></a>1.关卡</h2><p>类似于第七章，我们使用数组和字符串来描述一张二维网格，二维数组中用不同的字符定义元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">@ = Player start position</div><div class="line">o = Coins</div><div class="line">x = Solid surfaces</div><div class="line">! = Non-moving lava</div><div class="line">= = Vertical moving lava</div><div class="line">v = Dripping lava</div><div class="line">| = Horizontal moving lava</div><div class="line">*/</div><div class="line">var simpleLevelPlan = [</div><div class="line">  &quot;                      &quot;,</div><div class="line">  &quot;                      &quot;,</div><div class="line">  &quot;  x              = x  &quot;,</div><div class="line">  &quot;  x         o o    x  &quot;,</div><div class="line">  &quot;  x @      xxxxx   x  &quot;,</div><div class="line">  &quot;  xxxxx            x  &quot;,</div><div class="line">  &quot;      x!!!!!!!!!!!!x  &quot;,</div><div class="line">  &quot;      xxxxxxxxxxxxxx  &quot;,</div><div class="line">  &quot;                      &quot;</div><div class="line">];</div></pre></td></tr></table></figure>
+<p>这个游戏总共设置了三关，后面两关用一个二维数组定义，只有通过一个关卡才进入下一个管球。</p>
+<h2 id="2-读取关卡"><a href="#2-读取关卡" class="headerlink" title="2.读取关卡"></a>2.读取关卡</h2><p>用一个构造函数来构造Level对象，参数是关卡数组。里面保存了地图宽度、高度、表示网格的数组和表示活动元素的数组。活动元素数组负责保存对象。使用filter方法查找player，完成某关卡后调用finishDelay方法来显示一个过渡动画进入下一关。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">// Assumes the plan is valid (add validation for production)</div><div class="line">function Level(plan) &#123;</div><div class="line">  this.width = plan[0].length;</div><div class="line">  this.height = plan.length;</div><div class="line">  // Array of arrays, each position containing null or a character</div><div class="line">  this.grid = [];</div><div class="line">  // Contains all of the dynamic objects (lava, coin or player),</div><div class="line">  // along with their position and state</div><div class="line">  this.actors = [];</div><div class="line"></div><div class="line">  for (var y = 0; y &lt; this.height; y++) &#123;</div><div class="line">    var line = plan[y], gridLine = [];</div><div class="line">    for (var x = 0; x &lt; this.width; x++) &#123;</div><div class="line">      var ch = line[x], fieldType = null;</div><div class="line">      var Actor = actorChars[ch];</div><div class="line">      if (Actor)</div><div class="line">        // This constructs the referenced moving object in</div><div class="line">        // actorChars and pushes it to the actors array</div><div class="line">        this.actors.push(new Actor(new Vector(x, y), ch));</div><div class="line">      else if (ch == &apos;x&apos;)</div><div class="line">        // Wall</div><div class="line">        fieldType = &apos;wall&apos;;</div><div class="line">      else if (ch == &apos;!&apos;)</div><div class="line">        // Stationary lava</div><div class="line">        fieldType = &apos;lava&apos;;</div><div class="line">      gridLine.push(fieldType);</div><div class="line">    &#125;</div><div class="line">    this.grid.push(gridLine);</div><div class="line">  &#125;</div><div class="line">  // Find the Player actor</div><div class="line">  this.player = this.actors.filter(function(actor) &#123;</div><div class="line">    return actor.type == &apos;player&apos;;</div><div class="line">  &#125;)[0];</div><div class="line">  // Track whether the player has won or lost;</div><div class="line">  // finishDelay keeps the level active for a brief period of time</div><div class="line">  this.status = this.finishDelay = null;</div><div class="line">&#125;</div><div class="line">// Figure out if the level is finished</div><div class="line">Level.prototype.isFinished = function() &#123;</div><div class="line">  return this.status != null &amp;&amp; this.finishDelay &lt; 0;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>Level构造函数里面用到了未定义的actorChars，Actor，Vector，这些都是用来构建 actors，在下一节中定义。</p>
+<h2 id="3-读取元素：各个对象的构造函数"><a href="#3-读取元素：各个对象的构造函数" class="headerlink" title="3.读取元素：各个对象的构造函数"></a>3.读取元素：各个对象的构造函数</h2><p><strong>Vector：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// Vector stores the position and size of an actor</div><div class="line">function Vector(x, y) &#123;</div><div class="line">  this.x = x; this.y = y;</div><div class="line">&#125;</div><div class="line">Vector.prototype.plus = function(other) &#123;</div><div class="line">  return new Vector(this.x + other.x, this.y + other.y);</div><div class="line">&#125;</div><div class="line">Vector.prototype.times = function(factor) &#123;</div><div class="line">  return new Vector(this.x * factor, this.y * factor);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>times属性用于计算特定元素移动距离：speed * interval</p>
+<p><strong>actorChars</strong></p>
+<p>该对象将字符和构造函数关联起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var actorChars = &#123;</div><div class="line">  &apos;@&apos;: Player,</div><div class="line">  &apos;o&apos;: Coin,</div><div class="line">  &apos;=&apos;: Lava, &apos;|&apos;: Lava, &apos;v&apos;: Lava</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><strong>Player</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function Player(pos) &#123;</div><div class="line">  this.pos = pos.plus(new Vector(0, -0.5));</div><div class="line">  this.size = new Vector(0.8, 1.5);</div><div class="line">  this.speed = new Vector(0, 0);</div><div class="line">&#125;</div><div class="line">Player.prototype.type = &apos;player&apos;;</div></pre></td></tr></table></figure>
+<p>因为玩家的高度是1.5个格子，所以初始位置要比字符@出现的位置高半个格子。在构造的时候要减去0.5，因为屏幕的坐标pos是向下延伸的。</p>
+<p>地图上的坐标不是以px为单位，而是table的一个单元格。所以与位置有关的坐标都是以单元格的为单位的，比如Vector,pos,speed…</p>
+<p><strong>Lava</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function Lava(pos, ch) &#123;</div><div class="line">  this.pos = pos;</div><div class="line">  this.size = new Vector(1, 1);</div><div class="line">  if (ch == &quot;=&quot;) &#123;</div><div class="line">    // I&apos;m guessing that speed will be added to this.pos</div><div class="line">    // in a moving method added later</div><div class="line">    this.speed = new Vector(2, 0);</div><div class="line">  &#125; else if (ch == &apos;|&apos;) &#123;</div><div class="line">    this.speed = new Vector(0, 2);</div><div class="line">  &#125; else if (ch == &apos;v&apos;) &#123;</div><div class="line">    this.speed = new Vector(0, 3);</div><div class="line">    this.repeatPos = pos;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">Lava.prototype.type = &apos;lava&apos;;</div></pre></td></tr></table></figure>
+<p><strong>Coin</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Coin(pos) &#123;</div><div class="line">  this.basePos = this.pos = pos.plus(new Vector(0.2, 0.1));</div><div class="line">  this.size = new Vector(0.6, 0.6);</div><div class="line">  this.wobble = Math.random() * Math.PI * 2;</div><div class="line">&#125;</div><div class="line">Coin.prototype.type = &apos;coin&apos;;</div><div class="line">var wobbleSpeed = 8, wobbleDist = 0.07;</div></pre></td></tr></table></figure>
+<p>金币会在原地抖动，增加wobble属性。</p>
+<p>以上就是所有表示关卡信息的代码。</p>
+<h2 id="4-绘图"><a href="#4-绘图" class="headerlink" title="4.绘图"></a>4.绘图</h2><p>下面定义一个“显示器”对象DOMDisplay来封装绘图代码。</p>
+<p>首先有一个工具函数，创建元素并且赋予class。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> function elt(name, className) &#123;</div><div class="line">  var elt = document.createElement(name);</div><div class="line">  if (className) elt.className = className;</div><div class="line">  return elt;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>创建显示器对象需要指定父元素和一个关卡对象。<br>背景只需绘制一次，其他活动元素每次刷新都要重绘。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function DOMDisplay(parent, level) &#123;</div><div class="line">  this.wrap = parent.appendChild(elt(&apos;div&apos;, &apos;game&apos;));</div><div class="line">  this.level = level;</div><div class="line"></div><div class="line">  // Background is drawn only once</div><div class="line">  this.wrap.appendChild(this.drawBackground());</div><div class="line">  // The actorLayer is animated in the drawFrame() method</div><div class="line">  this.actorLayer = null;</div><div class="line">  this.drawFrame();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后将坐标按比例放大，创建的DOM元素的坐标尺寸的值都要与scale相乘，以转换成像素。<br>再添加CSS使background上的不同fieldType显示出来。（CSS代码略）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">// Set the scale of 1 grid unit</div><div class="line">var scale = 20;</div><div class="line">// Draw the background</div><div class="line">DOMDisplay.prototype.drawBackground = function() &#123;</div><div class="line">  var table = elt(&apos;table&apos;, &apos;background&apos;);</div><div class="line">  table.style.width = this.level.width * scale + &apos;px&apos;;</div><div class="line">  this.level.grid.forEach(function(row) &#123;</div><div class="line">    var rowElt = table.appendChild(elt(&apos;tr&apos;));</div><div class="line">    rowElt.style.height = scale + &apos;px&apos;;</div><div class="line">    row.forEach(function(type) &#123;</div><div class="line">      rowElt.appendChild(elt(&apos;td&apos;, type));</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">  return table;</div><div class="line">&#125;;</div><div class="line">// Draw the actors</div><div class="line">DOMDisplay.prototype.drawActors = function() &#123;</div><div class="line">  var wrap = elt(&apos;div&apos;);</div><div class="line">  this.level.actors.forEach(function(actor) &#123;</div><div class="line">    var rect = wrap.appendChild(elt(&apos;div&apos;, &apos;actor &apos; + actor.type));</div><div class="line">    rect.style.width  = actor.size.x * scale + &apos;px&apos;;</div><div class="line">    rect.style.height = actor.size.y * scale + &apos;px&apos;;</div><div class="line">    rect.style.left   = actor.pos.x * scale + &apos;px&apos;;</div><div class="line">    rect.style.top    = actor.pos.y * scale + &apos;px&apos;;</div><div class="line">  &#125;);</div><div class="line">  return wrap;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>每次重绘活动元素时，首先移除旧有的活动元素<code>removeChild()</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">DOMDisplay.prototype.drawFrame = function() &#123;</div><div class="line">  if (this.actorLayer)</div><div class="line">    this.wrap.removeChild(this.actorLayer);</div><div class="line">  this.actorLayer = this.wrap.appendChild(this.drawActors());</div><div class="line">  // The status class is used to style the player based on</div><div class="line">  // the state of the game (won or lost)</div><div class="line">  this.wrap.className = &apos;game &apos; + (this.level.status || &apos;&apos;);</div><div class="line">  this.scrollPlayerIntoView();</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><code>scrollPlayerIntoView()</code>来此确保关卡在视口范围之内，让player处于屏幕的中心区域。总屏幕中央设置一个中央区域，玩家在这个区域内移动时不会滚动视口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">DOMDisplay.prototype.scrollPlayerIntoView = function() &#123;</div><div class="line">  var width = this.wrap.clientWidth;</div><div class="line">  var height = this.wrap.clientHeight;</div><div class="line">  var margin = width / 3;</div><div class="line"></div><div class="line">  // The viewport</div><div class="line">  var left = this.wrap.scrollLeft, right = left + width;</div><div class="line">  var top = this.wrap.scrollTop, bottom = top + height;</div><div class="line"></div><div class="line">  // center makes use of the Vector methods defined earlier</div><div class="line">  var player = this.level.player;</div><div class="line">  var center = player.pos.plus(player.size.times(0.5))</div><div class="line">                  .times(scale);</div><div class="line"></div><div class="line">  if (center.x &lt; left + margin)</div><div class="line">    this.wrap.scrollLeft = center.x - margin;</div><div class="line">  else if (center.x &gt; right - margin)</div><div class="line">    this.wrap.scrollLeft = center.x + margin - width;</div><div class="line">  if (center.y &lt; top + margin)</div><div class="line">    this.wrap.scrollTop = center.y - margin;</div><div class="line">  else if (center.y &gt; bottom - margin)</div><div class="line">    this.wrap.scrollTop = center.y + margin - height;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后需要一个方法来清除已经显示的关卡已进入下一关。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DOMDisplay.prototype.clear = function() &#123;</div><div class="line">  this.wrap.parentNode.removeChild(this.wrap);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="5-动作与冲突"><a href="#5-动作与冲突" class="headerlink" title="5.动作与冲突"></a>5.动作与冲突</h2><p>Motion: 每个actor都有speed属性，speed * duration 就是它的下一个位置。为了显示的平滑流畅，需要每隔一小段时间（例如：20ms）就让它移动一次（重绘）。</p>
+<p>Collision: 碰撞检测。player会碰到墙、lava、coin，移动的lava也会碰到墙。碰撞之后，每种actor有自己特定的行为（停止、收集coin、弹回等）。类似于Motion，Collision检测也要每隔一小段时间就做一次，这样可以让动画更平滑。</p>
+<p> Figure out the collision area of an actor:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Level.prototype.obstacleAt = function(pos, size) &#123;</div><div class="line">  var xStart = Math.floor(pos.x);</div><div class="line">  var xEnd = Math.ceil(pos.x + size.x);</div><div class="line">  var yStart = Math.floor(pos.y);</div><div class="line">  var yEnd = Math.ceil(pos.y + size.y);</div><div class="line"></div><div class="line">  if (xStart &lt; 0 || xEnd &gt; this.width || yStart &lt; 0)</div><div class="line">    return &apos;wall&apos;;</div><div class="line">  if (yEnd &gt; this.height)</div><div class="line">    return &apos;lava&apos;;</div><div class="line">  for (var y = yStart; y &lt; yEnd; y++) &#123;</div><div class="line">    for (var x = xStart; x &lt; xEnd; x++) &#123;</div><div class="line">      var fieldType = this.grid[y][x];</div><div class="line">      // returns &apos;wall&apos; or &apos;lava&apos;</div><div class="line">      if (fieldType) return fieldType;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>第一个if判断玩家是否跑到地图左、右、上边界，是的话视为撞墙；第二个if判断是否跑到地图下边界，是的话视为碰到熔浆。for循环里判断是否与其他object相撞，返回对应的type，再作不同的反映处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Level.prototype.actorAt = function(actor) &#123;</div><div class="line">  for (var i = 0; i &lt; this.actors.length; i++) &#123;</div><div class="line">    var other = this.actors[i];</div><div class="line">    if (other != actor &amp;&amp;</div><div class="line">        actor.pos.x + actor.size.x &gt; other.pos.x &amp;&amp;</div><div class="line">        actor.pos.x &lt; other.pos.x + other.size.x &amp;&amp;</div><div class="line">        actor.pos.y + actor.size.y &gt; other.pos.y &amp;&amp;</div><div class="line">        actor.pos.y &lt; other.pos.y + other.size.y)</div><div class="line">      return other;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这里判断是否碰到其他actor</p>
+<h2 id="6-活动元素与动作"><a href="#6-活动元素与动作" class="headerlink" title="6.活动元素与动作"></a>6.活动元素与动作</h2><p>定义level的animate方法，传入的参数为时间间隔，创建key对象来保存玩家的按键信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var maxStep = 0.05;</div><div class="line">Level.prototype.animate = function(step, keys) &#123;</div><div class="line">  // Used for the delay at the end of a game</div><div class="line">  if (this.status != null)</div><div class="line">    this.finishDelay -= step;</div><div class="line"></div><div class="line">  while (step &gt; 0) &#123;</div><div class="line">    var thisStep = Math.min(step, maxStep);</div><div class="line">    this.actors.forEach(function(actor) &#123;</div><div class="line">      actor.act(thisStep, this, keys);</div><div class="line">    &#125;, this);</div><div class="line">    step -= thisStep;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>animate(step, keys) 方法会被定期调用，在这个函数中，每个actor都有机会执行自己的动作。</p>
+<p>step是个时间值（两次调用animate函数的时间间隔），在while循环中，我们把step切分成小的时间片，就是maxStep，0.05秒，也就是说，actor的每个动作时长最大是50ms。</p>
+<p>第一个if，是判断当前关卡是否结束：won or lost。 如果结束了，actors也会继续执行动作，直到 finishDelay 时间耗尽。</p>
+<p>keys 是键盘事件，由actor自行处理，只有player需要处理keys，改变运动方向。</p>
+<h3 id="Lava-‘s-action"><a href="#Lava-‘s-action" class="headerlink" title="Lava ‘s action"></a>Lava ‘s action</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Lava.prototype.act = function(step, level) &#123;</div><div class="line">  var newPos = this.pos.plus(this.speed.times(step));</div><div class="line">  if (!level.obstacleAt(newPos, this.size))</div><div class="line">    this.pos = newPos;</div><div class="line">  else if (this.repeatPos)</div><div class="line">    this.pos = this.repeatPos;</div><div class="line">  else</div><div class="line">    this.speed = this.speed.times(-1);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>移动没有遇到障碍物就移动到新的位置，如果是包含repeatPos属性的垂直下落熔岩碰到障碍物要回到起始位置，弹跳型熔岩速度逆转（* -1）</p>
+<h3 id="Coin-‘s-action"><a href="#Coin-‘s-action" class="headerlink" title="Coin ‘s action"></a>Coin ‘s action</h3><p>硬币通过act方法来实现摇晃，但是与玩家的碰撞是通过玩家的act方法来处理的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var wobbleSpeed = 8, wobbleDist = 0.07;</div><div class="line"></div><div class="line">Coin.prototype.act = function(step) &#123;</div><div class="line">  this.wobble += step * wobbleSpeed;</div><div class="line">  var wobblePos = Math.sin(this.wobble) * wobbleDist;</div><div class="line">  this.pos = this.basePos.plus(new Vector(0, wobblePos));</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="Player-‘s-action"><a href="#Player-‘s-action" class="headerlink" title="Player ‘s action"></a>Player ‘s action</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Player.prototype.act = function(step, level, keys) &#123;</div><div class="line">  this.moveX(step, level, keys);</div><div class="line">  this.moveY(step, level, keys);</div><div class="line"></div><div class="line">  var otherActor = level.actorAt(this);</div><div class="line">  if (otherActor)</div><div class="line">    level.playerTouched(otherActor.type, otherActor);</div><div class="line"></div><div class="line">  // Losing animation</div><div class="line">  if (level.status == &apos;lost&apos;) &#123;</div><div class="line">    this.pos.y += step;</div><div class="line">    this.size.y -=step;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>水平方向移动 moveX()；</p>
+</li>
+<li><p>垂直方向移动 moveY()；</p>
+</li>
+<li><p>碰撞检测 Level.playerTouched() ；</p>
+</li>
+<li><p>游戏失败处理 lost 。</p>
+</li>
+</ol>
+<p>在一个平面上的移动，都可以分成两步：先水平移动，再垂直移动。 因为每次移动的时间片很短(50ms)，距离也就会很短，从视觉效果看不出来分成了两步。</p>
+<p><strong>moveX()</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var playerXSpeed = 7;</div><div class="line">Player.prototype.moveX = function(step, level, keys) &#123;</div><div class="line">  this.speed.x = 0;</div><div class="line">  if (keys.left) this.speed.x -= playerXSpeed;</div><div class="line">  if (keys.right) this.speed.x += playerXSpeed;</div><div class="line"></div><div class="line">  var motion = new Vector(this.speed.x * step, 0);</div><div class="line">  var newPos = this.pos.plus(motion);</div><div class="line">  var obstacle = level.obstacleAt(newPos, this.size);</div><div class="line">  if (obstacle)</div><div class="line">    level.playerTouched(obstacle);</div><div class="line">  else</div><div class="line">    this.pos = newPos;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>左键右键调整水平方向的speed，移动到新位置，碰撞检测。</p>
+<p><strong>moveY()</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var gravity = 30;</div><div class="line">var jumpSpeed = 17;</div><div class="line">Player.prototype.moveY = function(step, level, keys) &#123;</div><div class="line">  this.speed.y += step * gravity;</div><div class="line">  var motion = new Vector(0, this.speed.y * step);</div><div class="line">  var newPos = this.pos.plus(motion);</div><div class="line">  var obstacle = level.obstacleAt(newPos, this.size);</div><div class="line">  if (obstacle) &#123;</div><div class="line">    level.playerTouched(obstacle);</div><div class="line">    if (keys.up &amp;&amp; this.speed.y &gt; 0)</div><div class="line">      this.speed.y = -jumpSpeed;</div><div class="line">    else</div><div class="line">      this.speed.y = 0;</div><div class="line">  &#125; else &#123;</div><div class="line">    this.pos = newPos;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>垂直方向上需要考虑重力加速度，如果没有发生碰撞，speed +=  step * gravity</p>
+<p><strong>Level.playerTouched()</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">Level.prototype.playerTouched = function(type, actor) &#123;</div><div class="line">  // Lava&apos;s been touched</div><div class="line">  if (type == &apos;lava&apos; &amp;&amp; this.status == null) &#123;</div><div class="line">    this.status = &apos;lost&apos;;</div><div class="line">    this.finishDelay = 1;</div><div class="line">  &#125; else if (type == &apos;coin&apos;) &#123; // a coin&apos;s been touched</div><div class="line">    // Remove the coin that&apos;s been collected from actors array</div><div class="line">    this.actors = this.actors.filter(function(other) &#123;</div><div class="line">      return other != actor;</div><div class="line">    &#125;);</div><div class="line">    // No more coins = you&apos;ve won</div><div class="line">    if (!this.actors.some(function(actor) &#123;</div><div class="line">      return actor.type == &apos;coin&apos;;</div><div class="line">    &#125;)) &#123;</div><div class="line">      this.status = &apos;won&apos;;</div><div class="line">      this.finishDelay = 1;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果碰到lava，游戏结束。如果碰到coin，从actors中删除这个coin，然后判断是否还有未收集的coin，如果没有了，则过关。</p>
+<h2 id="7-跟踪按键"><a href="#7-跟踪按键" class="headerlink" title="7.跟踪按键"></a>7.跟踪按键</h2><p>跟踪键盘事件，绑定三个按键的event。</p>
+<p>因为游戏是定时刷新的，所以不需要在每次收到键盘事件的时候就重绘场景，而是把键盘的状态记录下来，一定时间之后再处理该event。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">var arrowCodes = &#123;37: &apos;left&apos;, 38: &apos;up&apos;, 39: &apos;right&apos;&#125;;</div><div class="line"></div><div class="line">function trackKeys(codes) &#123;</div><div class="line">  var pressed = Object.create(null);</div><div class="line">  function handler(event) &#123;</div><div class="line">    if (codes.hasOwnProperty(event.keyCode)) &#123;</div><div class="line">      var down = event.type == &apos;keydown&apos;;</div><div class="line">      pressed[codes[event.keyCode]] = down;</div><div class="line">      event.preventDefault();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  addEventListener(&apos;keydown&apos;, handler);</div><div class="line">  addEventListener(&apos;keyup&apos;, handler);</div><div class="line"></div><div class="line">  pressed.unregister = function() &#123;</div><div class="line">    removeEventListener(&apos;keydown&apos;, handler);</div><div class="line">    removeEventListener(&apos;keyup&apos;, handler);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  return pressed;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>pressed这个Objtect保存按键状态。</p>
+<h2 id="8-运行游戏"><a href="#8-运行游戏" class="headerlink" title="8.运行游戏"></a>8.运行游戏</h2><p>游戏场景定时重绘，不是用timeinterval或者setTimeout，而是第十三章的requestAnimationFrames函数，该函数要求我们跟踪上次调用函数的事件，并在每一帧后再次调用requestAnimationFrame方法。在这里定义一个辅助函数把代码包装到runAnimation的简单接口里，用于组织 requestAnimationFrame() 的执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function runAnimation(frameFunc) &#123;</div><div class="line">  var lastTime = null;</div><div class="line">  function frame(time) &#123;</div><div class="line">    var stop = false;</div><div class="line">    if (lastTime != null) &#123;</div><div class="line">      var timeStep = Math.min(time - lastTime, 100) / 1000;</div><div class="line">      stop = frameFunc(timeStep) === false;</div><div class="line">    &#125;</div><div class="line">    lastTime = time;</div><div class="line">    if (!stop)</div><div class="line">      requestAnimationFrame(frame);</div><div class="line">  &#125;</div><div class="line">  requestAnimationFrame(frame);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数的参数是一个时间间隔，用于重绘每一帧的图像，当帧函数返回false的时候，整个动画停止。</p>
+<ol>
+<li>参数frameFunc，是真正的游戏场景刷新函数；</li>
+<li>内部的fame函数有个time参数，它是由系统传入的，是当前系统时间；</li>
+<li>注意 var timeStep，它是当前时间与上次刷新时间的间隔，问什么要给它取个最大值(100ms)呢？ 因为，如果浏览器窗口 (或tab) 被隐藏了，系统就会停止刷新该窗口，直到该窗口重新显示出来。 这可以起到暂停游戏的作用。</li>
+</ol>
+<p><strong>Run the game</strong><br>实现生命机制，给玩家限定5条命。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">function runGame(plans, Display) &#123;</div><div class="line">  var lives = 5;</div><div class="line">  var livesSpan = document.getElementById(&apos;lives&apos;);</div><div class="line">  var gameStatus = document.getElementById(&apos;status&apos;);</div><div class="line"></div><div class="line">  function startLevel(n) &#123;</div><div class="line">    livesSpan.textContent = lives;</div><div class="line">    runLevel(new Level(plans[n]), Display, function(status) &#123;</div><div class="line">      if (status == &apos;lost&apos;) &#123;</div><div class="line">        lives--;</div><div class="line">        if (lives == 0) &#123;</div><div class="line">          gameStatus.textContent = &apos;Game Over&apos;;</div><div class="line">          console.log(&apos;Game over&apos;);</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">          startLevel(n);</div><div class="line">      &#125;</div><div class="line">      else if (n &lt; plans.length - 1)</div><div class="line">        startLevel(n + 1);</div><div class="line">      else</div><div class="line">        console.log(&apos;You win!&apos;);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  startLevel(0);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>runLevel()</code>的参数是一个Level对象，显示关卡并且是用户通过节点开始游戏。在这里还使用可一个键盘事件处理器增加了一个功能，假如用户按下Esc键的时候就停止运行游戏。另外按照习题的要求，避免系统泄露（游戏没有运行时，事件处理器却是有效的），在启动游戏的时候注册游戏处理器，结束后销毁。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">var arrows = trackKeys(arrowCodes);</div><div class="line"></div><div class="line">function runLevel(level, Display, andThen) &#123;</div><div class="line">    var display = new Display(document.body, level);</div><div class="line">    var running = &quot;yes&quot;;</div><div class="line"></div><div class="line">    function handleKey(event) &#123;</div><div class="line">        if (event.keyCode == 27) &#123;</div><div class="line">            if (running == &quot;no&quot;) &#123;</div><div class="line">                running = &quot;yes&quot;;</div><div class="line">                runAnimation(animation);</div><div class="line">            &#125; else if (running == &quot;pausing&quot;) &#123;</div><div class="line">                running = &quot;yes&quot;;</div><div class="line">            &#125; else if (running == &quot;yes&quot;) &#123;</div><div class="line"></div><div class="line">                running = &quot;pausing&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    addEventListener(&quot;keydown&quot;, handleKey);</div><div class="line">    var arrows = trackKeys(arrowCodes);</div><div class="line"></div><div class="line">    function animation(step) &#123;</div><div class="line">        if (running == &quot;pausing&quot;) &#123;</div><div class="line">            running = &quot;no&quot;;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        level.animate(step, arrows);</div><div class="line">        display.drawFrame(step);</div><div class="line">        if (level.isFinished()) &#123;</div><div class="line">            display.clear();</div><div class="line">            removeEventListener(&quot;keydown&quot;, handleKey);</div><div class="line">            arrows.unregister();</div><div class="line">            if (andThen)</div><div class="line">                andThen(level.status);</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    runAnimation(animation);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>以上就是第十五章编写platform game的基本过程，玩一玩<a href="http://jsbin.com/jodigepuce/edit?html,css,js" target="_blank" rel="external">demo</a>。完整代码详见-&gt;我的<a href="https://github.com/Cruyun/JS-exercise/tree/master/Lab/task3" target="_blank" rel="external">github</a>。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

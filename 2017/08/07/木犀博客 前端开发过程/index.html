@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      木犀博客 前端开发过程 | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="前言：木犀博客是我的第二个团队项目，这篇博客记录一些从搭建环境到最终完成的过程中我遇到的问题及其解决方案、各种发现与总结(我的进度簿里面也会记录），持续更新。
+
+环境这次的项目选择Vue框架并使用Webpack。开发环境是ninja2，搭建的步骤如下：
+前续准备： npm node.js，我的分别是4.1.2 、v7.5.0
+大概套路：clone ninja下来
+clone/新建 项目仓库
+在项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="木犀博客 前端开发过程 | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2017/08/07/木犀博客 前端开发过程/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="前言：木犀博客是我的第二个团队项目，这篇博客记录一些从搭建环境到最终完成的过程中我遇到的问题及其解决方案、各种发现与总结(我的进度簿里面也会记录），持续更新。
+
+环境这次的项目选择Vue框架并使用Webpack。开发环境是ninja2，搭建的步骤如下：
+前续准备： npm node.js，我的分别是4.1.2 、v7.5.0
+大概套路：clone ninja下来
+clone/新建 项目仓库
+在项目">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-490797290388037f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-569ad9fa8a0c3ed4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-d41ab53899f617eb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-e463517aa7e5ce1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-02-05T13:32:22.682Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="木犀博客 前端开发过程 | Cruyun's Blog">
+<meta name="twitter:description" content="前言：木犀博客是我的第二个团队项目，这篇博客记录一些从搭建环境到最终完成的过程中我遇到的问题及其解决方案、各种发现与总结(我的进度簿里面也会记录），持续更新。
+
+环境这次的项目选择Vue框架并使用Webpack。开发环境是ninja2，搭建的步骤如下：
+前续准备： npm node.js，我的分别是4.1.2 、v7.5.0
+大概套路：clone ninja下来
+clone/新建 项目仓库
+在项目">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4938344-490797290388037f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">木犀博客 前端开发过程</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-08-07" class="post-meta__date date">2017-08-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Projects/">Projects</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>前言：<a href="https://github.com/Muxi-X/muxi_blog_fe/" target="_blank" rel="external">木犀博客</a>是我的第二个团队项目，这篇博客记录一些从搭建环境到最终完成的过程中我遇到的问题及其解决方案、各种发现与总结(我的进度簿里面也会记录），持续更新。</p>
+<hr>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>这次的项目选择Vue框架并使用Webpack。开发环境是ninja2，搭建的步骤如下：</p>
+<p><strong>前续准备：</strong> npm node.js，我的分别是4.1.2 、v7.5.0</p>
+<p><strong>大概套路：</strong><br>clone <a href="https://github.com/Muxi-Studio/ninja" target="_blank" rel="external">ninja</a>下来</p>
+<p>clone/新建 项目仓库</p>
+<p>在项目里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install -g ninja_cli</div><div class="line">touch ninja.conf.js</div></pre></td></tr></table></figure>
+<p>在ninja里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm link</div></pre></td></tr></table></figure>
+<p>在项目里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ninja2 init my-project webpack-vue</div><div class="line">ninja2 start</div></pre></td></tr></table></figure>
+<p>要把新生成的文件拿出来。<br>可能遇到的错：</p>
+<ul>
+<li>Uncaught TypeError: $export is not a function，解决：exclude: /node_modules/ after loader: ‘babel-loader’</li>
+<li>2-3个loader没装，手动install –save就好</li>
+</ul>
+<p>还有就是刚开始我跑的还是ninja的旧版本，这次要用ninja2。ninja和ninja2的架子和配置有很多不同的地方。</p>
+<hr>
+<h1 id="PC端"><a href="#PC端" class="headerlink" title="PC端"></a>PC端</h1><h2 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h2><p><img src="http://upload-images.jianshu.io/upload_images/4938344-490797290388037f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="简书是个好图床.png"></p>
+<p><strong>这个页面我分为以下几个组件：</strong></p>
+<ul>
+<li>导航栏navigation（根据实际需求改成了HOME WEB DESIGN ANDROID PRODUCT ABOUT)</li>
+<li>博客页面content</li>
+<li>右上角的登录注册sign</li>
+<li>文章标签tags</li>
+<li>文章归档archive</li>
+</ul>
+<p><strong>遇到的已解决的问题有：</strong></p>
+<ol>
+<li>引入了一个组件可是整个页面是空白的，debug很久其实是<code>&lt;style lang=&#39;scss&#39; module&gt;</code>没写对（被自己蠢哭）还有就是用了<code>&lt;navigation&gt;</code>做组件标签名字，和HTML原本存在的标签名字冲突了</li>
+<li><p>各类别的父组件里面给后台发送请求，用props传数据给content组件，这样就可以根据类别拉取不同数据</p>
+</li>
+<li><p>content: 在父组件，向后台发送请求拿到博客的所有参数，并且传给子组件。翻页的话，子组件里面要保存总页数和当前页数，点击向上或者向下翻页，当前页数改变传递给父组件，父组件收到之后重新拉取数据。【当前页数】是父子组件的双向传递，子-&gt;父 使用event emitter 子组件触发事件，父组件监听。</p>
+</li>
+<li><p>web/android..等页面渲染不出来，因为template里面include svg.html,svg的id也命名为web/android..就冲突了</p>
+</li>
+<li><p>用a标签，<code>:href=&quot;&quot;</code>跳转到second页面，那second页面要fetch数据，怎么拿到id呢: 从URL里面拿，window.location拿到URL，用<code>split(&#39;/&#39;)</code>处理字符串获得id</p>
+</li>
+<li><p>hover博客的box是出现半透明的蒙版和“阅读全文”的字：使用伪元素<code>:before</code>或者<code>:after</code>，控制hover的时候伪元素的样式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">.content_box &#123;</div><div class="line">	width: 100%;</div><div class="line">	margin-bottom: 30px;</div><div class="line">	font-size: 0;</div><div class="line">	background-color: $white;</div><div class="line">&#125;</div><div class="line">.mask &#123;</div><div class="line">	position: relative;</div><div class="line">	width: 100%;</div><div class="line">	height: 210px;</div><div class="line">&#125;</div><div class="line">.mask:before &#123;</div><div class="line">	content: &apos;阅读全文&apos;;</div><div class="line">	text-align: center;</div><div class="line">	line-height: 210px;</div><div class="line">	display: block;</div><div class="line">	width: 600px;</div><div class="line">	position: absolute;</div><div class="line">	top: 0;</div><div class="line">&#125;</div><div class="line">.mask:hover::before &#123;</div><div class="line">	background-color:rgba(82, 139, 139, 0.7);</div><div class="line">	font-size: 24px;</div><div class="line">	color: $white;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>返回对应分类的博客不能用一个单页多个router去写，抽出来一个组件放在多个页面，根据类别拉取不同的数据</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>Point 1</strong> <a href="https://css-tricks.com/using-mixins-vue-js/" target="_blank" rel="external">Using Mixins in Vue.js</a></p>
+<ul>
+<li><p>Usage:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import Child from &apos;./Child&apos;</div><div class="line">import &#123; toggle &#125; from &apos;./mixins/toggle&apos;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">  name: &apos;modal&apos;,</div><div class="line">  mixins: [toggle],</div><div class="line">  components: &#123;</div><div class="line">  appChild: Child</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>my example：home.js</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import Vue from &apos;vue&apos;</div><div class="line">import Sort from &apos;./components/Sort&apos;</div><div class="line">import style from &apos;./scss/reset.scss&apos;</div><div class="line"></div><div class="line">const App = &#123;</div><div class="line">  template: &quot;#app&quot;,</div><div class="line">  mixins: [Sort]</div><div class="line">&#125;</div><div class="line"></div><div class="line">App.el = &quot;#app&quot;</div><div class="line">const app = new Vue(App)</div></pre></td></tr></table></figure>
+<p>Sort.vue是home、web、design…页面公用的。本来只写了一个js,把所有的vue实例都放在了这里，但是这样进入到其中一个页面的时候，会请求七次同样的数据。于是分开写了各个页面的JS文件。</p>
+<p>由于各个页面里面的组件是重复的，在webpack里面需要做个处理，增加一个chunk把各个页面重复的组件放在一起</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">new webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">         name: &apos;common&apos;,</div><div class="line">         chunks: [&apos;sort&apos;,&apos;web&apos;,&apos;android&apos;,&apos;design&apos;,&apos;product&apos;,&apos;tagBlogs&apos;,&apos;archiveBlogs&apos;]</div><div class="line">     &#125;),</div></pre></td></tr></table></figure>
+<p>然后在各自的chunk里面加上common</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">new HtmlWebpackPlugin(&#123;</div><div class="line">         alwaysWriteToDisk: true,</div><div class="line">         filename: &apos;template/index.html&apos;,</div><div class="line">         inject: false,</div><div class="line">         template: path.join(__dirname, &apos;../template/index.ejs&apos;),</div><div class="line">         chunks: [&apos;common&apos;,&apos;home&apos;]</div><div class="line">     &#125;),</div></pre></td></tr></table></figure>
+<p>注意一下chunks的顺序，先写common</p>
+<p>打包处理的结构是这样的<br><img src="http://upload-images.jianshu.io/upload_images/4938344-569ad9fa8a0c3ed4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="common.js"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="二级页面：查看一篇博客文章"><a href="#二级页面：查看一篇博客文章" class="headerlink" title="二级页面：查看一篇博客文章"></a>二级页面：查看一篇博客文章</h2><p><img src="http://upload-images.jianshu.io/upload_images/4938344-d41ab53899f617eb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="木犀博客二级"></p>
+<p><strong>这个页面我分为以下几个部分：</strong></p>
+<ul>
+<li>组件：导航栏navigation（根据实际需求改成了HOME WEB DESIGN ANDROID PRODUCT ABOUT)</li>
+<li>博客文章</li>
+<li>组件：右上角的登录注册sign</li>
+<li>组件：评论框CommentBox</li>
+</ul>
+<p><strong>主要点</strong></p>
+<ul>
+<li>评论框组件：本来想评论成功之后直接将评论框的内容push到comments数组里面，但是还需要获取用户的ID和发布评论的时间，就重新fetch所有评论的数据。所以在评论框组件里面触发click事件提交新评论，<code>this.$parent.fetchCommet()</code>调用父组件的方法重新拉取评论列表</li>
+<li>发评论需要token</li>
+</ul>
+<h2 id="添加一篇博客文章"><a href="#添加一篇博客文章" class="headerlink" title="添加一篇博客文章"></a>添加一篇博客文章</h2><p><strong>这个页面我分为以下几个部分：</strong></p>
+<ul>
+<li>组件：导航栏navigation（根据实际需求改成了HOME WEB DESIGN ANDROID PRODUCT ABOUT)</li>
+<li>编辑博客文章</li>
+<li>组件：右上角的登录注册sign</li>
+</ul>
+<p><strong>主要点</strong></p>
+<ul>
+<li>选择组别：每个<code>input</code>有个各自的value，再用<code>v-model=&quot;group&quot;</code>保存下来</li>
+<li>添加tag：类似于一个TODO LIST，用<code>v-for</code>显示tag，input框里输入tag，按回车键触发事件用<code>@key.enterup=&quot;addTag&quot;</code>。需要注意的是，这里不仅仅只有<code>tag</code>和<code>tags[]</code>，否则你删除tag的时候无论点击哪一个delete，都会作用在最新添加的tag。因为tag一直在更新，调用removeTag()的时候，传入的参数是最新的tag。所以需要另一个变量newTag，让添加进数组里面的tag为newTag，这样子tags[]里面的元素是tag，而调用removeTag()时传入的参数是newTag，这样子<code>this.tags.indexOf(tag)</code>就能找到对应的tag。</li>
+</ul>
+<p>两个函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">addTag() &#123;</div><div class="line">     var tag = this.newTag.trim();</div><div class="line">     if (tag &amp;&amp; this.tags.length &lt; 5) &#123;</div><div class="line">        this.tags.push(tag);</div><div class="line">        this.newTag = &quot;&quot;;</div><div class="line">     &#125; else if (this.tags.length &gt;= 5) &#123;</div><div class="line">        this.tip = true</div><div class="line">     &#125;</div><div class="line"> &#125;,</div><div class="line">removeTag(tag) &#123;</div><div class="line">     var index = this.tags.indexOf(tag);</div><div class="line">     this.tags.splice(index, 1);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="编辑一篇博客文章"><a href="#编辑一篇博客文章" class="headerlink" title="编辑一篇博客文章"></a>编辑一篇博客文章</h1><p>刚开始我想的太复杂了，像拿到文章，然后再编辑，其实只要 mounted 时拿到原来的博客，再按照发送那样写就可以了。于是我把原来的发送页面的部分拿出来作为编辑和发送页面的组件，只用传一个 flag 区别，通过flag 判断是否要去拿原来的博客，以及分别使用 method 和 API。</p>
+<hr>
+<h1 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h1><p>扎心了，又要适配各种手机和浏览器了</p>
+<p>写移动端才发现要复用组件，于是抛弃了CSS Modules。<code>&lt;style lang=&quot;scss&quot; module&gt;</code>把module删掉，template里面也不需要写<code>:class=&quot;$style.xxx&quot;</code>。写pc.scss和mobile.scss，再按需引入。（vue loader自带了CSS Modules，无需自己install）</p>
+<p>和PC端不同的是，移动端没有发博客编辑博客的功能，并且把标签和归档栏放到了导航栏。</p>
+<h2 id="首页-1"><a href="#首页-1" class="headerlink" title="首页"></a>首页</h2><p><img src="http://upload-images.jianshu.io/upload_images/4938344-e463517aa7e5ce1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="移动端首页"></p>
+<ol>
+<li><p><strong>header:</strong> 唤出导航栏的按钮在左边，logo居中，登录入口在右边。实现这个效果，我用的方法有点粗暴：父元素用flex布局，让子元素（logo）居中；左右两个按钮<code>position: absolute</code>设置<code>top</code>、<code>left</code>、<code>right</code>调整位置。</p>
+</li>
+<li><p><strong>抽屉式导航栏：</strong> 用了vue transition。</p>
+<ul>
+<li>vue transition和CSS Modules一起用会出现bug，因为CSS Modules把class名称转成base64，动画找不到对应绑定的class。</li>
+<li>注意<code>z-index</code>的使用：父元素要<code>position: relative;</code>，子元素<code>position: absolute;</code>。</li>
+</ul>
+</li>
+</ol>
+<p>————————— 2.5 更新 ——————–</p>
+<p>希望改完首屏渲染的bug就能正式结束这个项目</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

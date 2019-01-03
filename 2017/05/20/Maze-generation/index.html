@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Maze-generation | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="CS103 Lab-Maze Generation by JS这是迷宫生成与求解lab之一：迷宫生成，知识点是回溯算法，参考地址,作者用的Ruby实现，评论区有用C语言的。我用的是JavaScript，参考了维基百科的提示，canvas的绘制用了p5.js,
+
+维基百科提示的迷宫生成算法Recursive backtracker[edit]Recursive backtracker on a he">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maze-generation | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2017/05/20/Maze-generation/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="CS103 Lab-Maze Generation by JS这是迷宫生成与求解lab之一：迷宫生成，知识点是回溯算法，参考地址,作者用的Ruby实现，评论区有用C语言的。我用的是JavaScript，参考了维基百科的提示，canvas的绘制用了p5.js,
+
+维基百科提示的迷宫生成算法Recursive backtracker[edit]Recursive backtracker on a he">
+<meta property="og:updated_time" content="2017-12-04T03:07:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maze-generation | Cruyun's Blog">
+<meta name="twitter:description" content="CS103 Lab-Maze Generation by JS这是迷宫生成与求解lab之一：迷宫生成，知识点是回溯算法，参考地址,作者用的Ruby实现，评论区有用C语言的。我用的是JavaScript，参考了维基百科的提示，canvas的绘制用了p5.js,
+
+维基百科提示的迷宫生成算法Recursive backtracker[edit]Recursive backtracker on a he">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Maze-generation</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-05-20" class="post-meta__date date">2017-05-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="CS103-Lab-Maze-Generation-by-JS"><a href="#CS103-Lab-Maze-Generation-by-JS" class="headerlink" title="CS103 Lab-Maze Generation by JS"></a>CS103 Lab-Maze Generation by JS</h1><p>这是迷宫生成与求解lab之一：迷宫生成，知识点是回溯算法，<a href="http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking" target="_blank" rel="external">参考地址</a>,作者用的Ruby实现，评论区有用C语言的。我用的是JavaScript，参考了<a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm" target="_blank" rel="external">维基百科</a>的提示，canvas的绘制用了<a href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwi08uqN6fTTAhUIH5QKHbyHAAMQFgglMAA&amp;url=https%3A%2F%2Fp5js.org%2F&amp;usg=AFQjCNFrY-ItqAJubKZUBm4qmSnqOYGo6Q&amp;sig2=FB9hjiaACLeBnD7Y_00Qow" target="_blank" rel="external">p5.js</a>,</p>
+<hr>
+<h3 id="维基百科提示的迷宫生成算法"><a href="#维基百科提示的迷宫生成算法" class="headerlink" title="维基百科提示的迷宫生成算法"></a>维基百科提示的迷宫生成算法</h3><p>Recursive backtracker[edit]<br>Recursive backtracker on a hexagonal grid<br>The depth-first search algorithm of maze generation is frequently implemented using backtracking:</p>
+<ol>
+<li><p>Make the initial cell the current cell and mark it as visited</p>
+</li>
+<li><p>While there are unvisited cells</p>
+<p>1.If the current cell has any neighbours which have not been visited</p>
+<pre><code>1.Choose randomly one of the unvisited neighbours
+
+2.Push the current cell to the stack
+
+3.Remove the wall between the current cell and the chosen cell
+
+4.Make the chosen cell the current cell and mark it as visited
+</code></pre><p>2.Else if stack is not empty</p>
+<pre><code>1.Pop a cell from the stack
+
+2.Make it the current cell
+</code></pre></li>
+</ol>
+<hr>
+<h3 id="下面介绍如何生成的迷宫"><a href="#下面介绍如何生成的迷宫" class="headerlink" title="下面介绍如何生成的迷宫"></a>下面介绍如何生成的迷宫</h3><h4 id="绘制网格"><a href="#绘制网格" class="headerlink" title="绘制网格"></a>绘制网格</h4><p>首先我们来绘制一个网格，定义网格的行、列、边长和每一格的边长。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var cols, rows;</div><div class="line">var w = 40; //single width</div><div class="line"></div><div class="line">function setup() &#123;</div><div class="line">    createCanvas(400, 400);</div><div class="line">    cols = floor(width / w); //make sure get integers</div><div class="line">    rows = floor(height / w);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们得到了一个总边长为400的10×10网格。把网格定义成一个一维数组grid[]（二维也是可以的）。</p>
+<p>创建一个函数，执行这个程序的主要步骤。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function draw() &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因为每个cell的四周是墙，我要做的就是去拆除部分墙形成迷宫，所以创建Cell函数，在里面拆墙。i和j分别代表网格的列和行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function Cell(i, j) &#123;</div><div class="line">    //create a cell object</div><div class="line">    this.i = i;</div><div class="line">    this.j = j;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样每个cell就都有了行和列的位置信息，在setup函数里面创建cell对象，cell的位置存放在grid[]中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// create cell objects</div><div class="line">    for (var j = 0; j &lt; rows; j++) &#123;</div><div class="line">        for (var i = 0; i &lt; cols; i++) &#123;</div><div class="line">            var cell = new Cell(i, j);</div><div class="line">            grid.push(cell);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>在draw函数里面要画出cell，所以在Cell函数里写一个函数show。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">this.show = function() &#123;</div><div class="line">        var x = this.i * w;</div><div class="line">        var y = this.j * w;</div><div class="line">        background(51);</div><div class="line">        for ( var i = 0; i &lt; grid.length; i++) &#123;</div><div class="line">        grid[i].show();</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+<p>这样我绘制出了一个网格。但是我需要对单独的cell拆墙，所以应该单独的绘制每个cell的墙。把绘制网格写在draw函数里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    function draw() &#123;</div><div class="line">    background(80);</div><div class="line">    for (var i = 0; i &lt; grid.length; i++) &#123;</div><div class="line">        grid[i].show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>把wall定义为一个数组，四个元素依次是上 右 下 左的状态（如果为true则该墙存在）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">this.walls = [true, true, true, true];</div></pre></td></tr></table></figure>
+<p>每个cell的四个顶点的坐标是(x, y)、(x+w, y)、(x, y+w)、(x+w, y+w)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">  this.show = function() &#123;</div><div class="line">      var x = this.i * w;</div><div class="line">      var y = this.j * w;</div><div class="line"></div><div class="line">      // draw the walls</div><div class="line">      // each cell:</div><div class="line">      // (x, y)--------(x+w, y)</div><div class="line">      //   |            |</div><div class="line">      //   |            |</div><div class="line">      //   |            |</div><div class="line">      // (x, y+w)-----(x+w, y+w)</div><div class="line"></div><div class="line">      stroke(255);</div><div class="line">      if (this.walls[0]) &#123;</div><div class="line">          line(x, y, x + w, y);</div><div class="line">      &#125;</div><div class="line">      if (this.walls[1]) &#123;</div><div class="line">          line(x + w, y, x + w, y + w);</div><div class="line">      &#125;</div><div class="line">      if (this.walls[2]) &#123;</div><div class="line">          line(x + w, y + w, x, y + w);</div><div class="line">      &#125;</div><div class="line">      if (this.walls[3]) &#123;</div><div class="line">          line(x, y + w, x, y);</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="回溯算法生成迷宫"><a href="#回溯算法生成迷宫" class="headerlink" title="回溯算法生成迷宫"></a>回溯算法生成迷宫</h4><p>每个cell都有neighbor cell，当有路可走的时候不能回头，所以要检查它的上下左右neighbor是否已经访问过，假如已经访问过就标记下来。<br>定义一个全局变量<code>visited</code>并设成<code>false</code>，再定义一个全局变量<code>current</code>,<code>current</code>是最近访问过的那一个邻居。先把<code>current</code>设定为起点<code>grid[0]</code>（这里你可以随意设置迷宫生成的起点）。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

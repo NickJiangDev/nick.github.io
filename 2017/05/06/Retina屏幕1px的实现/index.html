@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Retina屏幕1px的实现 | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="一些基本概念 viewport 视窗 
+在桌面浏览器中，viewport就是浏览器窗口的宽度高度。但在移动端设备上，假如没有viewport，移动端会采用桌面版的屏幕宽度，然后适应屏幕进行缩放。设置viewport可以控制页面的宽度并且在不同的设备上进行缩放。（A viewport controls how a webpage is displayed on a mobile device. Wi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Retina屏幕1px的实现 | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2017/05/06/Retina屏幕1px的实现/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="一些基本概念 viewport 视窗 
+在桌面浏览器中，viewport就是浏览器窗口的宽度高度。但在移动端设备上，假如没有viewport，移动端会采用桌面版的屏幕宽度，然后适应屏幕进行缩放。设置viewport可以控制页面的宽度并且在不同的设备上进行缩放。（A viewport controls how a webpage is displayed on a mobile device. Wi">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-40592fda54568184.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-72d1355fcd358aa6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4938344-0320e1b1f4cde23b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-05-08T13:51:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Retina屏幕1px的实现 | Cruyun's Blog">
+<meta name="twitter:description" content="一些基本概念 viewport 视窗 
+在桌面浏览器中，viewport就是浏览器窗口的宽度高度。但在移动端设备上，假如没有viewport，移动端会采用桌面版的屏幕宽度，然后适应屏幕进行缩放。设置viewport可以控制页面的宽度并且在不同的设备上进行缩放。（A viewport controls how a webpage is displayed on a mobile device. Wi">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4938344-40592fda54568184.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Retina屏幕1px的实现</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-05-06" class="post-meta__date date">2017-05-06</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/CSS/">CSS</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一些基本概念"><a href="#一些基本概念" class="headerlink" title="一些基本概念"></a>一些基本概念</h3><p><strong> viewport 视窗 </strong></p>
+<p>在桌面浏览器中，viewport就是浏览器窗口的宽度高度。但在移动端设备上，假如没有viewport，移动端会采用桌面版的屏幕宽度，然后适应屏幕进行缩放。设置viewport可以控制页面的宽度并且在不同的设备上进行缩放。<br>（A viewport controls how a webpage is displayed on a mobile device. Without a viewport, mobile devices will render the page at a typical desktop screen width, scaled to fit the screen. Setting a viewport gives control over the page’s width and scaling on different devices.）</p>
+<p>移动端提供了两个viewport，虚拟的viewport：visual viewport和布局的viewport：layout viewport。<a href="http://stackoverflow.com/questions/6333927/difference-between-visual-viewport-and-layout-viewport" target="_blank" rel="external">Stack Overflow上有深入的讲解。</a></p>
+<p><strong> 物理像素 &amp; 设备独立像素 &amp; CSS像素 </strong><br><strong> 物理像素 </strong>又被称为设备像素，他是显示设备中一个最微小的物理部件。每个像素可以根据操作系统设置自己的颜色和亮度。</p>
+<p><strong> 设备独立像素 </strong>也称为密度无关像素，可以认为是计算机坐标系统中的一个点，这个点代表一个可以由程序使用的虚拟像素(比如说CSS像素)，然后由相关系统转换为物理像素。</p>
+<p><strong>CSS设置的像素值（px）</strong>属于普通像素点，或者是标准像素点。CSS像素是一个抽像的单位，主要使用在浏览器上，用来精确度量Web页面上的内容。一般情况之下，CSS像素称为与设备无关的像素(device-independent pixel)，简称DIPs。</p>
+<p><strong> devicePixelRatio 设备像素比 </strong><br>设备像素比简称为dpr，其定义了物理像素和设备独立像素的对应关系。它的值可以按下面的公式计算得到：</p>
+<blockquote>
+<p>设备像素比 ＝ 物理像素 / 设备独立像素</p>
+</blockquote>
+<p><strong> 高清屏和普通屏幕 </strong><br>高清屏和普通屏来做对比就是普通屏幕的1个像素点就是1个物理像素点，而高清屏的1个像素点是4个物理像素点。<br>通过计算 devicePixelRatio 的值，可以区分普通显示屏和高清显示器，当devicePixelRatio值等于1时（也就是最小值），那么它是普通显示屏，当devicePixelRatio值大于1(通常是1.5、2.0)，那么它就是高清显示屏。<br>比如iPhone6的devicePixelRatio为2，所以是高清显示屏。iPhone6s plus这种高清屏dpr是3。</p>
+<p><strong> REM </strong><br>REM就是相对于根元素<html>的font-size来做计算。因为网页<html>的默认字体大小是 16px，所以</html></html></p>
+<blockquote>
+<p>1rem=16px ，10rem=160px</p>
+</blockquote>
+<hr>
+<h3 id="Retina屏幕1px产生的问题"><a href="#Retina屏幕1px产生的问题" class="headerlink" title="Retina屏幕1px产生的问题"></a>Retina屏幕1px产生的问题</h3><p>因为viewport的设置和屏幕物理分辨率是按比例而不是相同的，<meta>标签里实际上是设置了ideal viewport的宽度，而不同手机的ideal viewport宽度是不一样的。移动端window对象有devicePixelRatio属性，CSS里写1px的边框在devicePixelRatio = 2的Retina屏下会显示成2px。<br><img src="http://upload-images.jianshu.io/upload_images/4938344-40592fda54568184.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1px的效果"><br><img src="http://upload-images.jianshu.io/upload_images/4938344-72d1355fcd358aa6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1px被显示成2px"><br>图片来自<a href="http://jinlong.github.io/2015/05/24/css-retina-hairlines/" target="_blank" rel="external">Retina屏的移动设备如何实现真正1px的线？</a></p>
+<hr>
+<h3 id="如何实现Retina屏幕上1px的效果"><a href="#如何实现Retina屏幕上1px的效果" class="headerlink" title="如何实现Retina屏幕上1px的效果"></a>如何实现Retina屏幕上1px的效果</h3><h5 id="方法一-Viewport-REM"><a href="#方法一-Viewport-REM" class="headerlink" title="方法一 Viewport + REM"></a>方法一 Viewport + REM</h5><p>通过viewport + REM的方式来兼容,（<a href="https://github.com/amfe/lib-flexible" target="_blank" rel="external">淘宝移动端的方法</a>）使用JS动态获取屏幕的设备像素比devicePixelRatio，然后动态设置viewport。</p>
+<p>devicePixelRatio=2的时候，控制viewport的initial-scale值为0.5进行缩放<br><code>&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=0.5, user-scalable=no&quot;/&gt;</code><br>devicePixelRatio=3的时候，<br><code>&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=0.333333, user-scalable=no&quot;/&gt;</code><br>Android下不支持initial-scale，虽然这不适用于安卓, 但它里面的这一段代码可以用来做对安卓机的部署.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">    if (!dpr &amp;&amp; !scale) &#123;</div><div class="line">    var isAndroid = win.navigator.appVersion.match(/android/gi);</div><div class="line">    var isIPhone = win.navigator.appVersion.match(/iphone/gi);</div><div class="line">    var devicePixelRatio = win.devicePixelRatio;</div><div class="line">    if (isIPhone) &#123;</div><div class="line">        // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案</div><div class="line">        if (devicePixelRatio &gt;= 3 &amp;&amp; (!dpr || dpr &gt;= 3)) &#123;                </div><div class="line">            dpr = 3;</div><div class="line">        &#125; else if (devicePixelRatio &gt;= 2 &amp;&amp; (!dpr || dpr &gt;= 2))&#123;</div><div class="line">            dpr = 2;</div><div class="line">        &#125; else &#123;</div><div class="line">            dpr = 1;</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        // 其他设备下（比如安卓），仍旧使用1倍的方案</div><div class="line">        dpr = 1;</div><div class="line">    &#125;</div><div class="line">    scale = 1 / dpr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于安卓机做检测，动态加载CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var link = document.createElement(&apos;link&apos;);</div><div class="line">link.setAttribute(&quot;rel&quot;,&quot;stylesheet&quot;);</div><div class="line">link.setAttribute(&quot;type&quot;,&quot;text/css&quot;);</div><div class="line">link.setAttribute(&quot;href&quot;,&quot;.......Android.css&quot;);</div><div class="line">document.querySelector(&apos;head&apos;).appendChild(link);</div></pre></td></tr></table></figure></p>
+<p>这个方案结合了viewport和rem，所以使用的时候要考虑到REM布局。另外，REM布局下字体的单位仍建议使用px，还有出现1px像素线的地方，也仍旧使用border-width:1px;而不是border-width:.1rem;</p>
+<h5 id="方法二-Media-Query"><a href="#方法二-Media-Query" class="headerlink" title="方法二 Media Query"></a>方法二 Media Query</h5><p>根据屏幕的设备像素比来加载不同图片可以使用CSS的Media Query来解决，它对应devicePixelRatio有几个查询值-webkit-device-pixel-ratio，-webkit-min-device-pixel-ratio和 -webkit-max-device-pixel-ratio，但是这样我们就要切图片的一倍图和二倍图。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.img&#123; /* 普通显示屏(设备像素比例小于等于1.3)使用一倍图 */</div><div class="line">    background-image: url(img_1x.png);</div><div class="line">&#125;</div><div class="line">@media screen and (-webkit-min-device-pixel-ratio:1.5)&#123;</div><div class="line">.img&#123;/* 高清显示屏(设备像素比例大于等于1.5)使用二倍图  */</div><div class="line">    background-image: url(img_2x.png);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>据说IOS8以上CSS可以用小数点，理论上可以这样写。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">.border &#123;</div><div class="line"> border: 1px solid #ffffff;</div><div class="line">&#125;</div><div class="line">@media screen and (-webkit-min-device-pixel-ratio: 2) &#123;</div><div class="line">    .border &#123; border: 0.5px solid #ffffff; &#125;</div><div class="line">&#125;</div><div class="line">@media screen and (-webkit-min-device-pixel-ratio: 3) &#123;</div><div class="line">    .border &#123; border: 0.333333px solid #ffffff; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是由于安卓与低版本IOS不适用，所以不推荐这种写法。</p>
+<h5 id="方法三-box-shadow"><a href="#方法三-box-shadow" class="headerlink" title="方法三 box-shadow"></a>方法三 box-shadow</h5><p>利用CSS对阴影处理的方式实现<br><code>-webkit-box-shadow:0 1px 1px -1px rgba(0, 0, 0, 0.5);</code><br>优点是基本所有场景都能满足，包含圆角的button，单条，多条线。<br>缺点是颜色不好处理， 黑色 rgba(0,0,0,1) 是最浓的情况，而且有阴影出现。</p>
+<h5 id="方法四-background-image背景渐变实现"><a href="#方法四-background-image背景渐变实现" class="headerlink" title="方法四 background-image背景渐变实现"></a>方法四 background-image背景渐变实现</h5><p>通过CSS修改image，设置图片50%有颜色，50%透明，实现1px的效果。<br> <code>linear-gradient</code>属性一个表示颜色线性渐变的 image，语法是<code>linear-gradient([ [ [ &lt;angle&gt;| to[top | bottom] || [left | right] ],]? &lt;color-stop&gt;[, &lt;color-stop&gt;]+);</code>详细讲解看<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" target="_blank" rel="external">MDN文档</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">.border &#123;</div><div class="line">      background-image: linear-gradient(180deg, red, red 50%, transparent 50%),</div><div class="line">      linear-gradient(270deg, red, red 50%, transparent 50%),</div><div class="line">      linear-gradient(0deg, red, red 50%, transparent 50%),</div><div class="line">      linear-gradient(90deg, red, red 50%, transparent 50%);</div><div class="line">      background-size: 100% 1px, 1px 100% ,100% 1px, 1px 100%;</div><div class="line">      background-repeat: no-repeat;</div><div class="line">      background-position: top, right top,  bottom, left top;</div><div class="line">      padding: 10px;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>这个方法代码量大，而且无法实现边框的圆角效果。</p>
+<h5 id="方法五-border-image"><a href="#方法五-border-image" class="headerlink" title="方法五 border-image"></a>方法五 border-image</h5><p><img src="http://upload-images.jianshu.io/upload_images/4938344-0320e1b1f4cde23b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6X6的图片"><br>图片可以是gif、png、base 64，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.border&#123;</div><div class="line">    border-width: 1px;</div><div class="line">    border-image: url(border.png) 2 repeat;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>缺点</p>
+<ul>
+<li>想要实现圆角效果的话要放大修改图片</li>
+<li>边框颜色不方便修改</li>
+<li>边框存在多种颜色的时候麻烦</li>
+</ul>
+<h5 id="方法六-transform-scale-0-5-伪元素-before-after"><a href="#方法六-transform-scale-0-5-伪元素-before-after" class="headerlink" title="方法六 transform: scale(0.5)+伪元素:before, :after"></a>方法六 transform: scale(0.5)+伪元素:before, :after</h5><p>原理去掉把原先元素的 border ，然后利用 :before 或者 :after 重做 border ，并 transform 的 scale 属性将元素大小缩小为设置的值的一半，将原先的元素相对定位，新写的 border 设置绝对定位。</p>
+<p>使用样式的时候，要结合 JS 代码，判断是否 Retina 屏<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if(window.devicePixelRatio &amp;&amp; devicePixelRatio &gt;= 2)&#123;</div><div class="line">    document.querySelector(&apos;.box&apos;).className += &apos; box1&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>看一下demo代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">.box &#123;</div><div class="line">    border: none;</div><div class="line">    position: relative;</div><div class="line">    z-index: 3;</div><div class="line">&#125;</div><div class="line">.box1 :before &#123;</div><div class="line">    content: &apos;&apos;;</div><div class="line">    position: absolute;</div><div class="line">    top: 0;</div><div class="line">    left: 0;</div><div class="line">    -webkit-box-sizing: border-box;</div><div class="line">    box-sizing: border-box;</div><div class="line">    width: 200%;</div><div class="line">    height: 200%;</div><div class="line">    -webkit-transform: scale(0.5);</div><div class="line">    transform: scale(0.5);</div><div class="line">    color: #0b2029;</div><div class="line">    border-radius: 8px;</div><div class="line">    border: 2px solid #737373;</div><div class="line">    font-size: 0;</div><div class="line">    -webkit-transform-origin: 0 0;</div><div class="line">    transform-origin: 0 0;</div><div class="line">    z-index: -1;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>:before和:after 是用来给指定的元素的内容前面或后面插入新的内容。给<code>:before</code>添加了属性 <code>content</code>并设置为空（对于伪元素 :before 和 :after 而言，属性 content 是必须设置的否则伪元素不会生效），然后给它设置我需要的样式的两倍大小，再设置<code>transform: scale(0.5);</code>就实现了1px的效果。像这里的demo代码，我的box里面有input，所以要设置<code>index</code>，否则input就会被覆盖。</p>
+<p>注意<code>&lt;input type=&quot;button&quot;&gt;</code>没有:before, :after伪元素。</p>
+<p>ps：起初，伪元素的前缀使用的是单冒号语法，但为了和伪类(pseudo-classes)”区分开，在CSS3的规范里，伪元素的语法被修改成使用双冒号，成为::before &amp; ::after ，但是因为IE8只支持单冒号的语法，所以如果你想兼容IE8，保险的做法是使用单冒号。</p>
+<p>对于大型的项目，推荐使用<a href="http://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html" target="_blank" rel="external">手淘的flexible方案</a>，小型的页面用 transform: scale(0.5)+伪元素:before, :after较为方便。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

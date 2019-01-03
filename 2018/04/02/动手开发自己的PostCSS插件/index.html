@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      动手开发自己的 PostCSS 插件 | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="本文以我自己写的一个简单的插件：postCSS-px-to-vw 为例，介绍开发一个 PostCSS 插件的大致流程和原理。
+PostCSS 介绍
+PostCSS is a tool for transforming CSS with JS Plugins. These plugins can support variables and mixins, transpile future CSS s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动手开发自己的 PostCSS 插件 | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2018/04/02/动手开发自己的PostCSS插件/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="本文以我自己写的一个简单的插件：postCSS-px-to-vw 为例，介绍开发一个 PostCSS 插件的大致流程和原理。
+PostCSS 介绍
+PostCSS is a tool for transforming CSS with JS Plugins. These plugins can support variables and mixins, transpile future CSS s">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4938344-c4b8f781c998e587.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4938344-9268c0a20e75847f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-11-15T01:21:28.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动手开发自己的 PostCSS 插件 | Cruyun's Blog">
+<meta name="twitter:description" content="本文以我自己写的一个简单的插件：postCSS-px-to-vw 为例，介绍开发一个 PostCSS 插件的大致流程和原理。
+PostCSS 介绍
+PostCSS is a tool for transforming CSS with JS Plugins. These plugins can support variables and mixins, transpile future CSS s">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4938344-c4b8f781c998e587.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">动手开发自己的 PostCSS 插件</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-04-02" class="post-meta__date date">2018-04-02</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/PostCSS/">PostCSS</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>本文以我自己写的一个简单的插件：<a href="https://github.com/Cruyun/postcss-px-to-vw.git" target="_blank" rel="external">postCSS-px-to-vw</a> 为例，介绍开发一个 PostCSS 插件的大致流程和原理。</p>
+<h3 id="PostCSS-介绍"><a href="#PostCSS-介绍" class="headerlink" title="PostCSS 介绍"></a>PostCSS 介绍</h3><blockquote>
+<p>PostCSS is a tool for transforming CSS with JS Plugins. These plugins can support variables and mixins, transpile future CSS syntax, inline images, and more</p>
+</blockquote>
+<p>PostCSS 本身是一个功能比较单一的工具。它提供了一种方式用 JavaScript 代码来处理 CSS。它负责<strong>把 CSS 代码解析成抽象语法树结构</strong>（Abstract Syntax Tree，AST），再交由插件来进行处理。</p>
+<h3 id="开发插件的流程"><a href="#开发插件的流程" class="headerlink" title="开发插件的流程"></a>开发插件的流程</h3><p>PostCSS 的官方文档有较详细的<a href="https://github.com/postcss/postcss/blob/master/docs/writing-a-plugin.md" target="_blank" rel="external">教程</a>，同时也提供 boilerPlate 和 guidelines，以及丰富的PostCSS API。</p>
+<p>每个 PostCSS 插件都是一个 NodeJS 的模块。使用 postcss 的 plugin 方法来定义一个新的插件。插件需要一个名称，一般以“postcss-”作为前缀。插件还需要一个进行初始化的方法。该方法的参数是插件所支持的配置选项，而返回值则是另外一个方法，用来进行实际的处理。该处理方法会接受两个参数，css 代表的是表示 CSS AST 的对象，而 result 代表的是处理结果</p>
+<ul>
+<li>在项目文件夹的node_modules中创建插件文件夹，一般以<code>postcss-</code>为前缀。</li>
+<li>进入插件文件夹，<code>npm init</code>并且创建<code>index.js</code>，我们的插件功能就在此实现。</li>
+<li>安装postcss <code>npm install postcss --save</code>，你也可以安装你需要的其他依赖。</li>
+<li><code>index.js</code>的基本代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var postcss = require(&apos;postcss&apos;); // 引入 postCSS </div><div class="line"> </div><div class="line">module.exports = postcss.plugin(&apos;myplugin&apos;, function myplugin(options) &#123;</div><div class="line">    // css 代表的是表示 CSS AST 的对象，而 result 代表的是处理结果。</div><div class="line">    return function (css, result) &#123;</div><div class="line"> </div><div class="line">        options = options || &#123;&#125;;</div><div class="line">         </div><div class="line">        // Processing code will be added here</div><div class="line"> </div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="CSS-与-AST"><a href="#CSS-与-AST" class="headerlink" title="CSS 与 AST"></a>CSS 与 AST</h2><h3 id="AST-抽象语法树"><a href="#AST-抽象语法树" class="headerlink" title="AST 抽象语法树"></a>AST 抽象语法树</h3><p>抽象语法树（Abstract Syntax Tree）也称为AST语法树，指的是源代码语法所对应的树状结构。也就是说，对于一种具体编程语言下的源代码，通过构建语法树的形式将源代码中的语句映射到树中的每一个节点上。</p>
+<p>使用 <a href="https://astexplorer.net/" target="_blank" rel="external">AST Explorer</a> 这个工具可以进行在线预览与编辑。</p>
+<h3 id="CSS-与-AST-的对应关系"><a href="#CSS-与-AST-的对应关系" class="headerlink" title="CSS 与 AST 的对应关系"></a>CSS 与 AST 的对应关系</h3><p>例如以下的 CSS 代码，包含了注释、媒体查询、id 选择器和标签选择器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Paste or drop some CSS here and explore</div><div class="line"> * the syntax tree created by chosen parser.</div><div class="line"> * Enjoy!</div><div class="line"> */</div><div class="line"></div><div class="line">@media screen and (min-width: 480px) &#123;</div><div class="line">    body &#123;</div><div class="line">        background-color: lightgreen;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#main &#123;</div><div class="line">    border: 1px solid black;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ul li &#123;</div><div class="line">	padding: 5px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>表示成 AST 结构是这样的：</p>
+<p>整棵树有一个根节点 root，上面有四个属性: raws、type、 nodes、 source。其中<code>nodes</code>是树的节点数组，例如上面代码的 AST 的 nodes 数组是[comment, atrule, rule, rule]</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4938344-c4b8f781c998e587.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nodes.png"></p>
+<p>每一个AST 上的节点都有其属性和方法，例如<code>raws</code>、<code>type</code>、<code>name</code>、<code>value</code>、<code>prop</code>、<code>sourse</code>等。</p>
+<p>例如id 选择器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#main &#123;</div><div class="line">    border: 1px solid black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这一条 CSS rule 的 type 是 rule，其中有一条声明 border 属性的值，声明的type 为 decl，prop 是 border，value 是字符串<code>1px solid black</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4938344-9268c0a20e75847f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="#main.png"></p>
+<hr>
+<h2 id="使用-PostCSS-的-API-改变-CSS"><a href="#使用-PostCSS-的-API-改变-CSS" class="headerlink" title="使用 PostCSS 的 API 改变 CSS"></a>使用 PostCSS 的 API 改变 CSS</h2><p>PostCSS 自身只包括了 CSS 分析器，CSS 节点树 API，source map 生成器，CSS 节点拼接器，而基于PostCSS的插件都是使用了 CSS 节点树 API 来实现的。</p>
+<p>下面介绍几种常用的 API：</p>
+<ul>
+<li><code>css.walkRules()</code>方法用来遍历每一条 CSS 规则</li>
+<li><code>rule.walkDecls()</code>方法用来解析属性和值</li>
+<li><code>next()</code>方法返回当前节点的下一个节点，如果当前节点是最后一个子节点，则返回<code>undefined</code>。（<code>next() → {Node|undefined}</code>)</li>
+</ul>
+<p>以<a href="https://github.com/Cruyun/postcss-px-to-vw.git" target="_blank" rel="external">postCSS-px-to-vw</a> 为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">var postcss = require(&apos;postcss&apos;);</div><div class="line"></div><div class="line">// px为单位的值</div><div class="line">// !singlequotes|!doublequotes|!url()|pixelunit</div><div class="line">var pxRegex = /&quot;[^&quot;]+&quot;|&apos;[^&apos;]+&apos;|url\([^\)]+\)|(\d*\.?\d+)px/g;</div><div class="line"></div><div class="line">// 设计稿默认宽度(px)</div><div class="line">var Default = &#123;</div><div class="line">    vwUnit: 360</div><div class="line">&#125;</div><div class="line"></div><div class="line">module.exports = postcss.plugin(&apos;postcss-px-to-vw&apos;, function (options) &#123;</div><div class="line">    return function (css) &#123;</div><div class="line">        options = options || &#123;&#125;;</div><div class="line">        var opts = Object.assign(&#123;&#125;, Default, options);</div><div class="line">		</div><div class="line">		// 遍历每一条 CSS 规则</div><div class="line">        css.walkRules(function (rule) &#123;</div><div class="line">        // 遍历每一条声明</div><div class="line">            rule.walkDecls(function(decl) &#123;</div><div class="line">					// 下一个节点</div><div class="line">                const annotation = decl.next();</div><div class="line">                	// 如果下一个节点是文本为 px 的注释，则跳过该条声明</div><div class="line">                if ( annotation &amp;&amp; annotation.type == &apos;comment&apos; &amp;&amp; annotation.text == &apos;px&apos;) return;</div><div class="line">					// 属性中包含以 px 为单位的值</div><div class="line">                if (decl.value.indexOf(&apos;px&apos;) != -1) &#123;</div><div class="line">                // 使用正则匹配找到值</div><div class="line">                    decl.value = decl.value.replace(pxRegex, function (pxSize) &#123;</div><div class="line">                    var num = parseInt(pxSize);</div><div class="line">                    // 转换为 vw 单位</div><div class="line">                    var vwNum = num * 100 / opts.vwUnit;</div><div class="line">                    return vwNum + &apos;vw&apos;;</div><div class="line">                    &#125;);</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line"></div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<hr>
+<p>PostCSS 为处理 CSS 提供了一种新的思路。通过 PostCSS 强大的插件体系，可以对 CSS 进行各种不同的转换和处理，本质上我们的插件都是通过 JavaScript 代码，使用 API，操作 AST，从而改变 CSS。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

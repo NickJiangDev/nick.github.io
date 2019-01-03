@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      如何实现一个子元素居中，另一个子元素在边缘（上下左右） | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="先行知识：auto margins &amp;amp; flexbox1. How does margin auto work?我们经常使用margin: 0 auto 使元素水平居中，那么 auto margin 是如何起作用的呢? 字面上来看，设定 auto margin 即让浏览器决定 margin，浏览器会计算父元素和子元素的宽度，将剩余的宽度等分，分别给左右 margin，于是子元素水平居中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何实现一个子元素居中，另一个子元素在边缘（上下左右） | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2018/08/20/如何实现一个子元素居中，另一个子元素在末尾（上下左右）？/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="先行知识：auto margins &amp;amp; flexbox1. How does margin auto work?我们经常使用margin: 0 auto 使元素水平居中，那么 auto margin 是如何起作用的呢? 字面上来看，设定 auto margin 即让浏览器决定 margin，浏览器会计算父元素和子元素的宽度，将剩余的宽度等分，分别给左右 margin，于是子元素水平居中。">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw690/9f2b0190gy1fumx0vghabj21bo0p8gos.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/mw690/9f2b0190gy1fumx0t14jcj20s40f0myi.jpg">
+<meta property="og:updated_time" content="2018-08-26T06:33:57.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何实现一个子元素居中，另一个子元素在边缘（上下左右） | Cruyun's Blog">
+<meta name="twitter:description" content="先行知识：auto margins &amp;amp; flexbox1. How does margin auto work?我们经常使用margin: 0 auto 使元素水平居中，那么 auto margin 是如何起作用的呢? 字面上来看，设定 auto margin 即让浏览器决定 margin，浏览器会计算父元素和子元素的宽度，将剩余的宽度等分，分别给左右 margin，于是子元素水平居中。">
+<meta name="twitter:image" content="https://wx4.sinaimg.cn/mw690/9f2b0190gy1fumx0vghabj21bo0p8gos.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">如何实现一个子元素居中，另一个子元素在边缘（上下左右）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-08-20" class="post-meta__date date">2018-08-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/CSS/">CSS</a>, <a class="tags-link" href="/tags/Flexbox/">Flexbox</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="先行知识：auto-margins-amp-flexbox"><a href="#先行知识：auto-margins-amp-flexbox" class="headerlink" title="先行知识：auto margins &amp; flexbox"></a>先行知识：auto margins &amp; flexbox</h2><h3 id="1-How-does-margin-auto-work"><a href="#1-How-does-margin-auto-work" class="headerlink" title="1. How does margin auto work?"></a>1. How does margin auto work?</h3><p>我们经常使用<code>margin: 0 auto</code> 使元素水平居中，那么 auto margin 是如何起作用的呢? 字面上来看，设定 auto margin 即让浏览器决定 margin，浏览器会计算父元素和子元素的宽度，将剩余的宽度等分，分别给左右 margin，于是子元素水平居中。</p>
+<p>根据 CSS specification <a href="https://www.w3.org/TR/CSS21/visudet.html#blockwidth" target="_blank" rel="external">Calculating widths and margins for Block-level, non-replaced elements in normal flow</a> :</p>
+<blockquote>
+<p>if both ‘margin-left’ and ‘margin-right’ are ‘auto’, their used values are equal. This horizontally centers the element with respect to the edges of the containing</p>
+</blockquote>
+<p>下面有个有趣的情况，如果你的父容器是 <code>display: flex</code>， 那么<code>margin: auto auto</code>(或者 <code>margin: auto</code> ) 的子元素将会垂直水平居中，无论是行内元素或块元素(an inline or block element.)</p>
+<p><img src="https://wx4.sinaimg.cn/mw690/9f2b0190gy1fumx0vghabj21bo0p8gos.jpg" alt=""></p>
+<p>当然，如果使用 flexbox 的话，我们无需设置auto margins 实现水平垂直居中，用<code>align-items: center;</code> 和 <code>justify-content: center;</code> 即可。</p>
+<h3 id="2-flexbox-的各个常用的属性可以参阅A-Complete-Guide-to-Flexbox"><a href="#2-flexbox-的各个常用的属性可以参阅A-Complete-Guide-to-Flexbox" class="headerlink" title="2. flexbox 的各个常用的属性可以参阅A Complete Guide to Flexbox"></a>2. flexbox 的各个常用的属性可以参阅<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="external">A Complete Guide to Flexbox</a></h3><hr>
+<p>回到正文，下面主要介绍以下方法：</p>
+<ul>
+<li>CSS Positioning</li>
+<li>Flexbox with Invisible DOM Element</li>
+<li>Flexbox with Invisible Pseudo-Element</li>
+<li>Flexbox with flex: 1</li>
+<li>Add Justify-content: Space-between &amp; Invisible Flex Item (DOM element)</li>
+<li>CSS Grid Layout</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">------------------</div><div class="line">       ABC     	D</div><div class="line">------------------</div></pre></td></tr></table></figure>
+<h2 id="Method-1-CSS-Positioning-Properties"><a href="#Method-1-CSS-Positioning-Properties" class="headerlink" title="Method #1: CSS Positioning Properties"></a>Method #1: CSS Positioning Properties</h2><p>父元素 <code>position: relative</code>，item D <code>position: absolute</code>，虽然子元素 D 会由此脱离文档流，但仍在最近的父容器的范围内，再使用 CSS 偏移的属性移动元素到目标位置。</p>
+<p><a href="https://codepen.io/cruyun/pen/eLJBZY" target="_blank" rel="external">demo戳这里</a></p>
+<h2 id="Method-2-Flex-Auto-Margins-amp-Invisible-Flex-Item-DOM-element"><a href="#Method-2-Flex-Auto-Margins-amp-Invisible-Flex-Item-DOM-element" class="headerlink" title="Method #2: Flex Auto Margins &amp; Invisible Flex Item (DOM element)"></a>Method #2: Flex Auto Margins &amp; Invisible Flex Item (DOM element)</h2><blockquote>
+<p><a href="http://www.w3.org/TR/css-flexbox-1/#auto-margins" target="_blank" rel="external">Flexible Box Layout Module - 8.1. Aligning with auto margins</a></p>
+<p>Auto margins on flex items have an effect very similar to auto margins in block flow:</p>
+<ul>
+<li><p>During calculations of flex bases and flexible lengths, auto margins are treated as 0.</p>
+</li>
+<li><p>Prior to alignment via justify-content and align-self, any positive free space is distributed to auto margins in that dimension.</p>
+</li>
+</ul>
+</blockquote>
+<p>通过设置 auto margin ，添加一个不可见（<code>visibility: hidden</code>）的 flex item 实现布局。新的 item 与 item D相同，并放置在另一端（左边缘）。</p>
+<p>更具体地说，因为flexbox 对齐是基于剩余空间的分布，所以为了保持三个中间的 item 水平居中。新 item 的宽度必须与现有 item D 的宽度相同，否则中间 item 将不会精确居中。</p>
+<p>示例代码如下，<a href="https://codepen.io/cruyun/pen/zJrKVx" target="_blank" rel="external">demo 戳这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">li:first-child &#123;</div><div class="line">  margin-right: auto;</div><div class="line">  visibility: hidden;</div><div class="line">&#125;</div><div class="line">li:last-child &#123;</div><div class="line">  margin-left: auto;</div><div class="line">  background: #ddd;</div><div class="line">&#125;</div><div class="line">ul &#123;</div><div class="line">  padding: 0;</div><div class="line">  margin: 0;</div><div class="line">  display: flex;</div><div class="line">  flex-direction: row;</div><div class="line">  justify-content: center;</div><div class="line">  align-items: center;</div><div class="line">&#125;</div><div class="line">li &#123;</div><div class="line">  display: flex;</div><div class="line">  margin: 1px;</div><div class="line">  padding: 5px;</div><div class="line">  background: #aaa;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;ul&gt;</div><div class="line">  &lt;li&gt;D&lt;/li&gt;&lt;!-- new; invisible spacer item --&gt;</div><div class="line">  &lt;li&gt;A&lt;/li&gt;</div><div class="line">  &lt;li&gt;B&lt;/li&gt;</div><div class="line">  &lt;li&gt;C&lt;/li&gt;</div><div class="line">  &lt;li&gt;D&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+<p>与应用于flex 父容器的justify-content不同，auto margins 用于flex items，通过占用指定方向上的所有可用空间起作用。</p>
+<h2 id="Method-3-Flex-Auto-Margins-amp-Invisible-Flex-Item-pseudo-element"><a href="#Method-3-Flex-Auto-Margins-amp-Invisible-Flex-Item-pseudo-element" class="headerlink" title="Method #3: Flex Auto Margins &amp; Invisible Flex Item (pseudo-element)"></a>Method #3: Flex Auto Margins &amp; Invisible Flex Item (pseudo-element)</h2><p>这个方法与上一个类似，只是将复制 item D 改为使用伪元素去创造 D 的副本。缺点是 item D 必须是不可变的确定内容，优点是在代码上更加简洁易懂。</p>
+<p>示例代码如下，<a href="https://codepen.io/cruyun/pen/mGVOOX" target="_blank" rel="external">demo 戳这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">ul::before &#123;</div><div class="line">  content:&quot;D&quot;;</div><div class="line">  margin: 1px auto 1px 1px;</div><div class="line">  visibility: hidden;</div><div class="line">  padding: 5px;</div><div class="line">  background: #ddd;</div><div class="line">&#125;</div><div class="line">// 其余 CSS 代码与上一方法相同 </div><div class="line"></div><div class="line">// HTML </div><div class="line">&lt;ul&gt;</div><div class="line">  &lt;li&gt;A&lt;/li&gt;</div><div class="line">  &lt;li&gt;B&lt;/li&gt;</div><div class="line">  &lt;li&gt;C&lt;/li&gt;</div><div class="line">  &lt;li&gt;D&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+<h2 id="Method-4-Add-flex-1-to-left-and-right-items"><a href="#Method-4-Add-flex-1-to-left-and-right-items" class="headerlink" title="Method #4: Add flex: 1 to left and right items"></a>Method #4: Add flex: 1 to left and right items</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex" target="_blank" rel="external">flex</a> 规定了弹性元素如何伸长或缩短以适应flex容器中的可用空间。</p>
+<p>不像方法＃2或＃3，需要在明确 item D 的内容， 确保左右项目的宽度相等以保持平衡，本方法只需给边缘 item 设 <code>flex：1</code>， 左右两边的子元素将获得相同的宽度（它们将均匀分配可用空间）使得中心元素将始终完美居中。</p>
+<p>示例代码如下，<a href="https://codepen.io/cruyun/pen/WgraNg" target="_blank" rel="external">demo 戳这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/* CSS */</div><div class="line">.flex-container &#123;</div><div class="line">  display: flex;</div><div class="line">  flex-direction: row;</div><div class="line">  background: lightblue;</div><div class="line">  width: 300px;</div><div class="line">  min-height: 80px;</div><div class="line">  justify-content: center;</div><div class="line">  align-items: center;</div><div class="line">&#125;</div><div class="line">.item &#123;</div><div class="line">  flex: 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/* HTML */</div><div class="line">&lt;div class=&quot;flex-container&quot;&gt;</div><div class="line">  &lt;div class=&quot;item&quot;&gt;left&lt;/div&gt;</div><div class="line">  &lt;div&gt;center&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>该方法只适用于<strong>按行排列</strong>的情况。</p>
+<h2 id="Method-5-Add-Justify-content-Space-between-amp-Invisible-Flex-Item-DOM-element"><a href="#Method-5-Add-Justify-content-Space-between-amp-Invisible-Flex-Item-DOM-element" class="headerlink" title="Method #5: Add Justify-content: Space-between &amp; Invisible Flex Item (DOM element)"></a>Method #5: Add Justify-content: Space-between &amp; Invisible Flex Item (DOM element)</h2><p><a href="https://css-tricks.com/almanac/properties/j/justify-content/" target="_blank" rel="external">justify-content</a>属性定义了浏览器如何分配顺着父容器主轴的弹性元素之间及其周围的空间。</p>
+<p><img src="https://wx2.sinaimg.cn/mw690/9f2b0190gy1fumx0t14jcj20s40f0myi.jpg" alt=""></p>
+<p><code>justify-content: space-between;</code> 均匀排列每个元素，首个元素放置于起点，末尾元素放置于终点。</p>
+<p>示例代码如下，<a href="https://codepen.io/cruyun/pen/LJGgpR" target="_blank" rel="external">demo 戳这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.container &#123;</div><div class="line">  display: flex;</div><div class="line">  flex-direction: column;</div><div class="line">  background: lightblue;</div><div class="line">  width: 300px;</div><div class="line">  height: 100px;</div><div class="line">  justify-content: space-between;</div><div class="line">  align-items: center;</div><div class="line">&#125;</div><div class="line">.item &#123;</div><div class="line">  background-color: white;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;container&quot;&gt;</div><div class="line">  &lt;div class=&quot;item&quot;&gt;left&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;item&quot;&gt;center&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="Method-6-CSS-Grid-Layout"><a href="#Method-6-CSS-Grid-Layout" class="headerlink" title="Method #6: CSS Grid Layout"></a>Method #6: CSS Grid Layout</h2><p>这可能是最干净，最有效的方法。不需要绝对定位，虚假元素或其他hackery。</p>
+<p>只需创建一个包含多列的网格。然后将项目放在中间和结束列中。基本上，只需将第一列留空即可。</p>
+<p>示例代码如下，<a href="https://codepen.io/cruyun/pen/aadRdv" target="_blank" rel="external">demo 戳这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">ul &#123;</div><div class="line">  display: grid;</div><div class="line">  grid-template-columns: 1fr repeat(3, auto) 1fr;</div><div class="line">  grid-column-gap: 5px;</div><div class="line">  justify-items: center;</div><div class="line">&#125;</div><div class="line"></div><div class="line">li:nth-child(1) &#123; grid-column-start: 2; &#125;</div><div class="line">li:nth-child(4) &#123; margin-left: auto; &#125;</div><div class="line"></div><div class="line"></div><div class="line">ul &#123; padding: 0; margin: 0; list-style: none; &#125;</div><div class="line">li &#123; padding: 5px; background: #aaa; &#125;</div><div class="line">p  &#123; text-align: center; &#125;</div><div class="line">&lt;ul&gt;</div><div class="line">  &lt;li&gt;A&lt;/li&gt;</div><div class="line">  &lt;li&gt;B&lt;/li&gt;</div><div class="line">  &lt;li&gt;C&lt;/li&gt;</div><div class="line">  &lt;li&gt;D&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这种情况实际上在导航栏等组件中是有可能经常出现的。当然解法不止以上几种，以上仅仅是我总结的几种方法。</p>
+<p>如果横向排列，我推荐使用方法 #4，纵向排列推荐使用方法 #5。将来 CSS Grid得到更多的兼容支持的时候，也许是最简洁的方法。</p>
+<hr>
+<p>参考及推荐阅读：</p>
+<ul>
+<li><a href="https://css-tricks.com/the-peculiar-magic-of-flexbox-and-auto-margins/" target="_blank" rel="external">CSS Tricks: The peculiar magic of flexbox and auto margins</a></li>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="external">A Complete Guide to Flexbox</a></li>
+</ul>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

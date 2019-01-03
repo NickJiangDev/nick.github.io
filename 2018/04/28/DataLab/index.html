@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Data Lab | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="1. 任务内容通过本次 lab 熟悉整数及浮点数的位表示方式，解开一些 puzzle。
+puzzle 主要分为三种类型：位操作、整型运算和浮点数运算。
+
+
+
+名称
+描述
+难度
+指令数目
+
+
+
+
+bitAnd(x,y)
+只用和 ~ 实现 x &amp;amp; y
+1
+8
+
+
+getByte(x,n)
+从数 x 中提取第 n 个字节
+2
+6
+
+
+logicalShift(x,n)
+实现逻辑右移
+3
+20">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data Lab | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2018/04/28/DataLab/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="1. 任务内容通过本次 lab 熟悉整数及浮点数的位表示方式，解开一些 puzzle。
+puzzle 主要分为三种类型：位操作、整型运算和浮点数运算。
+
+
+
+名称
+描述
+难度
+指令数目
+
+
+
+
+bitAnd(x,y)
+只用和 ~ 实现 x &amp;amp; y
+1
+8
+
+
+getByte(x,n)
+从数 x 中提取第 n 个字节
+2
+6
+
+
+logicalShift(x,n)
+实现逻辑右移
+3
+20">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4938344-1831b4e7c3653e04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-05-06T06:02:29.877Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Data Lab | Cruyun's Blog">
+<meta name="twitter:description" content="1. 任务内容通过本次 lab 熟悉整数及浮点数的位表示方式，解开一些 puzzle。
+puzzle 主要分为三种类型：位操作、整型运算和浮点数运算。
+
+
+
+名称
+描述
+难度
+指令数目
+
+
+
+
+bitAnd(x,y)
+只用和 ~ 实现 x &amp;amp; y
+1
+8
+
+
+getByte(x,n)
+从数 x 中提取第 n 个字节
+2
+6
+
+
+logicalShift(x,n)
+实现逻辑右移
+3
+20">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4938344-1831b4e7c3653e04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Data Lab</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-04-28" class="post-meta__date date">2018-04-28</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/CSAPP/">CSAPP</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="1-任务内容"><a href="#1-任务内容" class="headerlink" title="1. 任务内容"></a>1. 任务内容</h2><p>通过本次 lab 熟悉整数及浮点数的位表示方式，解开一些 puzzle。</p>
+<p>puzzle 主要分为三种类型：位操作、整型运算和浮点数运算。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">难度</th>
+<th style="text-align:center">指令数目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">bitAnd(x,y)</td>
+<td style="text-align:center">只用和 ~ 实现 x &amp; y</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">getByte(x,n)</td>
+<td style="text-align:center">从数 x 中提取第 n 个字节</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">logicalShift(x,n)</td>
+<td style="text-align:center">实现逻辑右移</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">20</td>
+</tr>
+<tr>
+<td style="text-align:center">bitCount(x)</td>
+<td style="text-align:center">计算二进制数 x 中 1 的个数</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">40</td>
+</tr>
+<tr>
+<td style="text-align:center">bang(x)</td>
+<td style="text-align:center">不使用!而计算!x</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:center">tmin()</td>
+<td style="text-align:center">返回所能表示的最小整数</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">fitsBits(x,n)</td>
+<td style="text-align:center">如果x可以表示为n位二进制补码形式,则返回1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">15</td>
+</tr>
+<tr>
+<td style="text-align:center">divpwr2(x,n)</td>
+<td style="text-align:center">计算x/(2^n)</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">15</td>
+</tr>
+<tr>
+<td style="text-align:center">negate(x)</td>
+<td style="text-align:center">计算 -x</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">isPositive(x)</td>
+<td style="text-align:center">x &gt; 0 返回1,x &lt;= 0返回0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">isLessOrEqual(x,y)</td>
+<td style="text-align:center">x &lt;= y 返回 1 否则返回0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">24</td>
+</tr>
+<tr>
+<td style="text-align:center">ilog2(x)</td>
+<td style="text-align:center">返回不超过以2为底x对数的最小整数</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">90</td>
+</tr>
+<tr>
+<td style="text-align:center">float_neg(uf)</td>
+<td style="text-align:center">返回和浮点数参数-f相等的二进制数，返回参数本身当参数是NaN时</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">float_i2f(x)</td>
+<td style="text-align:center">实现(float)x，返回x对应浮点数的二进制表示形式</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td style="text-align:center">float_twice(uf)</td>
+<td style="text-align:center">返回以unsinged表示的浮点数二倍的二进制形式</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">30</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-上手指南"><a href="#2-上手指南" class="headerlink" title="2. 上手指南"></a>2. 上手指南</h2><p>一共 13 个需要补充的函数，所有的工作都只需修改 bits.c 文件。</p>
+<p><strong>任务指示说明</strong></p>
+<ol>
+<li>整型的范围是0~255(0xff)</li>
+<li>只能包含参数和局部变量，不能使用全局变量</li>
+<li>单目运算符：! ~</li>
+<li>双目运算符：&amp; ^ | + &lt;&lt; &gt;&gt;</li>
+</ol>
+<p><strong>不允许的操作</strong></p>
+<ol>
+<li>使用任何条件控制语句</li>
+<li>定义或使用宏</li>
+<li>定义其他的函数</li>
+<li>调用函数</li>
+<li>使用其他的操作符</li>
+<li>使用类型转换</li>
+<li>使用除 int 之外的类型（针对整型）</li>
+<li>使用除 int, unsigned 之外的类型（针对浮点数）</li>
+</ol>
+<p><strong>可以认为机器：</strong></p>
+<ol>
+<li>使用 2’s complent，32位</li>
+<li>执行算术右移（左端补k个有效位）</li>
+<li>移动超过字长的位数会出问题</li>
+</ol>
+<p><strong>测试代码</strong></p>
+<ul>
+<li>运行 <code>make btest</code> 编译函数</li>
+<li>使用 <code>dlc compiler (./dlc)</code> 自动检测你的代码是否符合规定</li>
+<li>运行 <code>./btest</code> 检测函数是否编写成功</li>
+<li>使用 <code>./ishow n</code> 查看n的十六进制，有符号整型和无符号整型形式</li>
+<li>使用 <code>./fshow n</code> 查看n的浮点数表示形式</li>
+</ul>
+<h2 id="3-题目及解法"><a href="#3-题目及解法" class="headerlink" title="3. 题目及解法"></a>3. 题目及解法</h2><h3 id="bitAnd"><a href="#bitAnd" class="headerlink" title="bitAnd"></a>bitAnd</h3><p>只用和 ~ 实现 x &amp; y</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int bitAnd(int x, int y) &#123;</div><div class="line">  return ~((~x) | (~y));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>摩尔定律 x &amp; y = ~(~(x &amp; y))</p>
+<h3 id="getByte"><a href="#getByte" class="headerlink" title="getByte"></a>getByte</h3><p>从数 x 中提取第 n 个字节</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int getByte(int x, int n) &#123;</div><div class="line">   n = n &lt;&lt; 3; //n * 8</div><div class="line">   x = (x &gt;&gt; n) &amp; 0xff; // 右移n位</div><div class="line">   return x;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="logicalShift"><a href="#logicalShift" class="headerlink" title="logicalShift"></a>logicalShift</h3><p>实现逻辑右移</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int logicalShift(int x, int n) &#123;</div><div class="line">  int mask;</div><div class="line">  mask  = ~((1 &lt;&lt; 31) &gt;&gt; n &lt;&lt; 1);</div><div class="line">  return (x &gt;&gt; n) &amp; mask; //x右移n位，前n位置0</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>逻辑右移要在原最高位前 n 位置零</p>
+<h3 id="bitCount"><a href="#bitCount" class="headerlink" title="bitCount"></a>bitCount</h3><p>计算二进制数 x 中 1 的个数</p>
+<p><strong>方法一：</strong> 采用分治法，把每一位都当成独立的数，并求和。<a href="https://stackoverflow.com/questions/3815165/how-to-implement-bitcount-using-only-bitwise-operators" target="_blank" rel="external">参考链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">int bitCount(int x) &#123;</div><div class="line">  int tmp, mask1, mask2, mask3, mask4, mask5, sum;</div><div class="line"></div><div class="line">  // mask1: 0x55555555</div><div class="line">  tmp = 0x55 | (0x55 &lt;&lt; 8);</div><div class="line">  mask1 = tmp | (tmp &lt;&lt; 16);</div><div class="line"></div><div class="line">  // mask2: 0x33333333</div><div class="line">  tmp = 0x33 | (0x33 &lt;&lt; 8);</div><div class="line">  mask2 = tmp | (tmp &lt;&lt; 16);</div><div class="line"></div><div class="line">  // mask3: 0x0f0f0f0f</div><div class="line">  tmp = 0x0f | (0x0f &lt;&lt; 8);</div><div class="line">  mask3 = tmp | (tmp &lt;&lt; 16);</div><div class="line"></div><div class="line">  // mask4: 0x00ff00ff</div><div class="line">  mask4 = 0xFF | (0xFF &lt;&lt; 16);</div><div class="line"></div><div class="line">  // mask5: 0x0000ffff</div><div class="line">  tmp = 0xFF | (0xFF &lt;&lt; 8);</div><div class="line">  mask5 = tmp | (0 &lt;&lt; 16);</div><div class="line"></div><div class="line">  sum = (x &amp; mask1) + ((x &gt;&gt; 1) &amp; mask1);</div><div class="line">  sum = (sum &amp; mask2) + ((sum &gt;&gt; 2) &amp; mask2);</div><div class="line">  sum = (sum &amp; mask3) + ((sum &gt;&gt; 4) &amp; mask3);</div><div class="line">  sum = (sum &amp; mask4) + ((sum &gt;&gt; 8) &amp; mask4);</div><div class="line">  sum = (sum &amp; mask5) + ((sum &gt;&gt; 16) &amp; mask5);</div><div class="line"></div><div class="line">  return sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>每1位视为一个数，相邻求和，结果用2位保存。</li>
+<li>每2位视为一个数，相邻求和，结果用4位保存。</li>
+<li>每4位视为一个数，相邻求和，结果用8位保存。</li>
+<li>每8位视为一个数，相邻求和，结果用16位保存。</li>
+<li>右移16位：每16位视为一个数，相邻求和，结果用32位保存。即为最终结果。</li>
+</ol>
+<p>为什么要右移呢？以每4位视为一数为例，1001被视为两个数10,01，若要将二者求和，则需要分别将二者从原数中取出，然后相加。掩码0011可以直接取出01，若要取出10，则需要先将10右移到低位。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">So if I have number 395 in binary 0000000110001011 (0 0 0 0 0 0 0 1 1 0 0 0 1 0 1 1)</div><div class="line">After the first step I have:      0000000101000110 (0+0 0+0 0+0 0+1 1+0 0+0 1+0 1+1) = 00 00 00 01 01 00 01 10</div><div class="line">In the second step I have:        0000000100010011 ( 00+00   00+01   01+00   01+10 ) = 0000 0001 0001 0011</div><div class="line">In the fourth step I have:        0000000100000100 (   0000+0001       0001+0011   ) = 00000001 00000100</div><div class="line">In the last step I have:          0000000000000101 (       00000001+00000100       )</div></pre></td></tr></table></figure>
+<p><strong>方法二</strong>：也是分治法的思想，首先将32位数分为8组，对于每四位数，通过三次移位运算统计每组数中1的个数，然后将前16位与后16位相加，将1的个数浓缩在16位中，再以同样的方法将1的个数整理到8位中，得到最后结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">int bitCount(int x) &#123;</div><div class="line">  int sum = 0;</div><div class="line">  // i = 0x11111111</div><div class="line">  int i = 0x11 | (0x11 &lt;&lt; 8);</div><div class="line">  i = i | (i &lt;&lt; 16);</div><div class="line">  </div><div class="line">  //对于每四位，通过不停的移位运算将前三位的1加到第四位上</div><div class="line">  sum += x &amp; i;</div><div class="line">  sum += (x &gt;&gt; 1) &amp; i;</div><div class="line">  sum += (x &gt;&gt; 2) &amp; i;</div><div class="line">  sum += (x &gt;&gt; 3) &amp; i;</div><div class="line"></div><div class="line">  //令i = 0xffff;</div><div class="line">  i = 0xff | (0xff&lt;&lt;8);</div><div class="line"></div><div class="line">  //将前16位与后16位相加</div><div class="line">  sum = (sum &gt;&gt; 16) + (i &amp; sum);</div><div class="line"></div><div class="line">  //令i = 0x0f0f</div><div class="line">  //整理每8位之和</div><div class="line">  i = 0x0f | (0x0f&lt;&lt;8);</div><div class="line">  sum = ((sum &gt;&gt; 4) &amp; i) + (sum &amp; i);</div><div class="line"></div><div class="line">  //将前8位与后8位相加</div><div class="line">  i = 0xff;</div><div class="line">  sum = (sum &gt;&gt; 8) + (i &amp; sum);</div><div class="line">  </div><div class="line">  return sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="bang"><a href="#bang" class="headerlink" title="bang"></a>bang</h3><p>不使用!而计算!x    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int bang(int x) &#123;</div><div class="line">  int i = ~x + 1; </div><div class="line">  int j = (i | x) &gt;&gt; 31; //符号相同则为0，不同为1</div><div class="line">  return j + 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 零的特殊之处，零和零的相反数首位都是零，-0 = +0 = 0，-x只有在x=0时符号位才不会改变。故只需利用x | (-x) = x | (~x + 1)的符号位即可</p>
+<h3 id="tmin"><a href="#tmin" class="headerlink" title="tmin"></a>tmin</h3><p>返回所能表示的最小整数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int tmin(void) &#123;</div><div class="line">  return 0x80 &lt;&lt; 24; // 0x80000000</div><div class="line">  // return 1 &lt;&lt; 31;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="fitsBits"><a href="#fitsBits" class="headerlink" title="fitsBits"></a>fitsBits</h3><p>如果x可以表示为n位二进制补码形式,则返回1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int fitsBits(int x, int n) &#123;</div><div class="line">  int i = 32 + (~n + 1);</div><div class="line">  int a = (x &lt;&lt; i) &gt;&gt; i;</div><div class="line">  return !(x ^ a);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>左移32-n位，右移32-n位，若不变则 return 1</p>
+<h3 id="divpwr2"><a href="#divpwr2" class="headerlink" title="divpwr2"></a>divpwr2</h3><p>计算x/(2^n)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int divpwr2(int x, int n) &#123;</div><div class="line">  int bias = (1 &lt;&lt; n) + ~0;</div><div class="line">  return (x + ((x &gt;&gt; 31) &amp; bias)) &gt;&gt; n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>学习CSAPP第三版 2.3.7内容可知：</p>
+<blockquote>
+<p>无论x正负，结果都是舍入到0。因此正数向下舍入，负数向上舍入。直接右移n位会导致不论正负数都是向下舍入。</p>
+</blockquote>
+<p>当 x 为正数时，直接 x &gt;&gt; n 即可。当 x 为负数时，直接右移会同样向下舍入（前提是补码与无符号数的乘法表示形式相同），所以要增加一个偏移量，然后再右移，使其向上舍入。</p>
+<h3 id="negate"><a href="#negate" class="headerlink" title="negate"></a>negate</h3><p>计算 -x</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int negate(int x) &#123;</div><div class="line">  return ~x + 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>按位取反加一得到相反数。<br>关于2的补码可以看<a href="http://www.ruanyifeng.com/blog/2009/08/twos_complement.html" target="_blank" rel="external">这里</a></p>
+<h3 id="isPositive"><a href="#isPositive" class="headerlink" title="isPositive"></a>isPositive</h3><p>x &gt; 0 返回1,x &lt;= 0返回0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int isPositive(int x) &#123;</div><div class="line">  int m = (x &gt;&gt; 31) &amp; 1; // 取符号位</div><div class="line">  int i = !!x; // 判断是否为 0</div><div class="line">  return i ^ m;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="isLessOrEqual"><a href="#isLessOrEqual" class="headerlink" title="isLessOrEqual"></a>isLessOrEqual</h3><p>x &lt;= y 返回 1 否则返回0</p>
+<p>return 1 : x&lt; 0,y &gt; 0 or x - y &lt;= 0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int isLessOrEqual(int x, int y) &#123;</div><div class="line">  int m = (~x + 1) + y; //y-x</div><div class="line">  int p = !!(x &gt;&gt; 31); //x的符号位</div><div class="line">  int q = !!(y &gt;&gt; 31); //y的符号位</div><div class="line">  int i = !(m &gt;&gt; 31); //y-x&gt;=0时i==1</div><div class="line">  int j = ! (p ^ q); // 判断是否同号</div><div class="line">  return (i &amp; j) | (p &amp; !q);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>假如直接用<code>x &gt; y =&gt; x - y &gt; 0 =&gt; x + (~y + 1) &gt; 0</code>这个性质，在-x = x（x = 0x80000000)时会被截断，因为计算机并不是纯数学，加法与可能会溢出。</p>
+<h3 id="ilog2"><a href="#ilog2" class="headerlink" title="ilog2"></a>ilog2</h3><p>返回不超过以2为底x对数的最小整数。找最高位的1出现的位置，也就是求最高有效位的右边有多少位。</p>
+<p><strong>解法一：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">int ilog2(int x) &#123;</div><div class="line">  int mark;</div><div class="line">  // 先判断高16位是否有1，出现1则确定最终结果数量级必然大于16</div><div class="line">  mark = (!!(x &gt;&gt; 16)) &lt;&lt; 4;</div><div class="line">  // 判断高8位，一次类推</div><div class="line">  mark +=  ((!!(x &gt;&gt; (mark + 8))) &lt;&lt; 3);</div><div class="line">  mark += ((!!(x &gt;&gt; (mark + 4))) &lt;&lt; 2);</div><div class="line">  mark += ((!!(x &gt;&gt; (mark + 2))) &lt;&lt; 1);</div><div class="line">  mark += ((!!(x &gt;&gt; (mark + 1))) &lt;&lt; 0);</div><div class="line"></div><div class="line">  mark += (!!mark) + (~0) + (!(1 ^ x)); //考虑x=0</div><div class="line"></div><div class="line">  return mark;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>解法二：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">int ilog2(int x) &#123;</div><div class="line"></div><div class="line">  int tmp, mask1, mask2, mask3, mask4, mask5, v;</div><div class="line"></div><div class="line">  x = x | (x &gt;&gt; 1);</div><div class="line">  x = x | (x &gt;&gt; 2);</div><div class="line">  x = x | (x &gt;&gt; 4);</div><div class="line">  x = x | (x &gt;&gt; 8);</div><div class="line">  x = x | (x &gt;&gt; 16);</div><div class="line"></div><div class="line"></div><div class="line">  // bitCount  </div><div class="line">  tmp = 0x55 | (0x55 &lt;&lt; 8);</div><div class="line">  mask1 = tmp | (tmp &lt;&lt; 16); // 0x55555555</div><div class="line"></div><div class="line">  tmp = 0x33 | (0x33 &lt;&lt; 8);</div><div class="line">  mask2 = tmp | (tmp &lt;&lt; 16); // 0x33333333</div><div class="line"></div><div class="line">  tmp = 0x0F | (0x0F &lt;&lt; 8);</div><div class="line">  mask3 = tmp | (tmp &lt;&lt; 16); // 0x0F0F0F0F</div><div class="line"></div><div class="line">  mask4 = 0xFF | (0xFF &lt;&lt; 16); // 0x00FF00FF</div><div class="line"></div><div class="line">  tmp = 0xFF | (0xFF &lt;&lt; 8);</div><div class="line">  mask5 = tmp | (0 &lt;&lt; 16); // 0x0000FFFF</div><div class="line"></div><div class="line">  v = (x &amp; mask1) + ((x &gt;&gt; 1) &amp; mask1);</div><div class="line">  v = (v &amp; mask2) + ((v &gt;&gt; 2) &amp; mask2);</div><div class="line">  v = (v &amp; mask3) + ((v &gt;&gt; 4) &amp; mask3);</div><div class="line">  v = (v &amp; mask4) + ((v &gt;&gt; 8) &amp; mask4);</div><div class="line">  v = (v &amp; mask5) + ((v &gt;&gt; 16) &amp; mask5);</div><div class="line"></div><div class="line">  return v + ~0; // x - 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>先把有效位右边的所有位都置1，然后计算1的个数。</p>
+<p>怎么把所有有效位都置为1呢？把最高有效位不停地移到右边呗。先右移1位，得到11，然后右移2位，得到1111，依此类推。例如 0010 1011 =&gt; 0011 1111</p>
+<h3 id="float-neg"><a href="#float-neg" class="headerlink" title="float_neg"></a>float_neg</h3><p>返回和浮点数参数-f相等的二进制数，返回参数本身当参数是NaN时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">unsigned float_neg(unsigned uf) &#123;</div><div class="line">  unsigned result;</div><div class="line">  unsigned m;</div><div class="line"></div><div class="line">	// 最高位取反</div><div class="line">  result = uf ^ 0x80000000;</div><div class="line">  // 最高位清 0</div><div class="line">  m = uf &amp; 0x7fffffff;</div><div class="line">  if (m &gt; 0x7f800000) &#123;</div><div class="line">    result = uf;</div><div class="line">  &#125;</div><div class="line">  return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>NaN 时返回 NaN,否则改变符号位</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4938344-1831b4e7c3653e04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nan.png"></p>
+<h3 id="float-i2f"><a href="#float-i2f" class="headerlink" title="float_i2f"></a>float_i2f</h3><p>实现(float)x，返回x对应的浮点数的32位754标准的二进制存储格式。</p>
+<p>此题考查对于IEEE二进制浮点数算术标准（IEEE 754）的掌握</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">unsigned float_i2f(int x) &#123;</div><div class="line">	// s 符号位，exp 最高位的位置即指数，franc 记录尾数</div><div class="line">  unsigned s = 0, exp = 31, frac = 0, d = 0;</div><div class="line">  if (x == 0) return 0;</div><div class="line">  </div><div class="line">  // 判断正负</div><div class="line">  if (x &amp; 0x80000000) &#123;</div><div class="line">    s = 0x80000000;</div><div class="line">    x = -x;</div><div class="line">  &#125;</div><div class="line">  while (1) &#123;</div><div class="line">    if (x &amp; 0x80000000) break;</div><div class="line">      exp -= 1;    //exp记录最高位的位置</div><div class="line">      x &lt;&lt;= 1;</div><div class="line">  &#125;</div><div class="line">  if ((x &amp; 0x000001ff) == 0x180) d = 1;   //最后舍掉的8位若最高位为1且低七位仍有数，要进位</div><div class="line">  else if ((x &amp; 0xff) &gt; 0x80) d = 1;</div><div class="line">  frac = ((x &amp; 0x7fffffffu) &gt;&gt; 8) + d;   //franc记录尾数</div><div class="line"></div><div class="line">  return s + ((exp + 127) &lt;&lt; 23) + frac;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="float-twice"><a href="#float-twice" class="headerlink" title="float_twice"></a>float_twice</h3><p>返回以unsinged表示的浮点数的二倍的二进制形式    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">unsigned float_twice(unsigned uf) &#123;</div><div class="line">  if((uf &amp; 0x7F800000) == 0)   // 若是指数为0情况，非规格化</div><div class="line">    return (uf &lt;&lt; 1) | (0x80000000 &amp; uf);//特殊情况0x80000000</div><div class="line">  else if((uf &amp; 0x7fffffff) &gt;= 0x7f800000)   //若数为NaN</div><div class="line">    return uf;</div><div class="line">  return uf + 0x00800000;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>指数位全为0的为非规格化数，指数为1 - Bias，底数为0.f，f表示小数字段。因此加倍时直接左移。规格化的数加倍时指数+1。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

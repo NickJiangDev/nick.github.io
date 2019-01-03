@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      IEEE754浮点表示 | Cruyun&#39;s Blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Cruyun">
+    
+    
+
+    <meta name="description" content="浮点格式是一种数据结构，用于指定包含浮点数的字段、这些字段的布局及其算术解释。浮点存储格式指定如何将浮点格式存储在内存中。自计算机发明以来，曾出现许多中不同的浮点数表示方式，但目前最通用的是 IEEE 二进制浮点数算术标准(IEEE Standard for Binary Floating-Point Arithmetic, 简称IEEE 754 标准)。
+IEEE 中的浮点数IEEE 754 标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IEEE754浮点表示 | Cruyun's Blog">
+<meta property="og:url" content="https://Cruyun.github.io/2018/05/05/IEEE754浮点表示/index.html">
+<meta property="og:site_name" content="Cruyun's Blog">
+<meta property="og:description" content="浮点格式是一种数据结构，用于指定包含浮点数的字段、这些字段的布局及其算术解释。浮点存储格式指定如何将浮点格式存储在内存中。自计算机发明以来，曾出现许多中不同的浮点数表示方式，但目前最通用的是 IEEE 二进制浮点数算术标准(IEEE Standard for Binary Floating-Point Arithmetic, 简称IEEE 754 标准)。
+IEEE 中的浮点数IEEE 754 标">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4938344-e85bc826cfb042f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4938344-2f6a88694dcacaca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4938344-e85bc826cfb042f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4938344-52a64845c61baf72.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-05-05T08:27:41.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IEEE754浮点表示 | Cruyun's Blog">
+<meta name="twitter:description" content="浮点格式是一种数据结构，用于指定包含浮点数的字段、这些字段的布局及其算术解释。浮点存储格式指定如何将浮点格式存储在内存中。自计算机发明以来，曾出现许多中不同的浮点数表示方式，但目前最通用的是 IEEE 二进制浮点数算术标准(IEEE Standard for Binary Floating-Point Arithmetic, 简称IEEE 754 标准)。
+IEEE 中的浮点数IEEE 754 标">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4938344-e85bc826cfb042f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/huno/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for Cruyun&#39;s Blog"><img src="https://avatars3.githubusercontent.com/u/24372759?s=460&amp;v=4" width="80" alt="Cruyun&#39;s Blog logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Cruyun&#39;s Blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Talk is cheap, show you my code
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Cruyun" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">IEEE754浮点表示</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-05-05" class="post-meta__date date">2018-05-05</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/CSAPP/">CSAPP</a>, <a class="tags-link" href="/tags/计算机组成原理/">计算机组成原理</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>浮点格式是一种数据结构，用于指定包含浮点数的字段、这些字段的布局及其算术解释。浮点存储格式指定如何将浮点格式存储在内存中。自计算机发明以来，曾出现许多中不同的浮点数表示方式，但目前最通用的是 IEEE 二进制浮点数算术标准(IEEE Standard for Binary Floating-Point Arithmetic, 简称IEEE 754 标准)。</p>
+<h2 id="IEEE-中的浮点数"><a href="#IEEE-中的浮点数" class="headerlink" title="IEEE 中的浮点数"></a>IEEE 中的浮点数</h2><p><strong>IEEE 754 标准中定义了表示浮点数的四种格式:</strong></p>
+<ul>
+<li>两种基本的浮点数: 单精确度(32 位字长) 和双精确度(64 位字长)。其中单精度格式具有24位有效数字，而双精度格式具有53 位有效数字，相对于十进制来说，分别是7位和16位有效数字。</li>
+<li>两种扩展的浮点数: 单精度扩展和双精度扩展。此标准并未规定扩展格式的精度和大小，但它指定了最小精度和大小: 单精度扩展需43 位字长以上，双精确度扩展需79位字长以上:(64位有效数字)。单精度扩展很少使用，而对于双精确度扩展，不同的机器构架中有不同的规定，有的为80 位字长(X86),有的为128 位字长(SPARC)。</li>
+</ul>
+<h3 id="浮点数格式"><a href="#浮点数格式" class="headerlink" title="浮点数格式"></a>浮点数格式</h3><p>通常一个浮点数由符号 s 、指数 E 和尾数 M 组成，格式为</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4938344-e85bc826cfb042f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="格式.png"></p>
+<ol>
+<li>(-1)^s 表示符号位，当 s = 0，V 为正数；当 s = 1，V 为负数。</li>
+<li>M 是一个二进制小数，表示有效数字，大于等于1，小于2。</li>
+<li>2^E 表示指数位。</li>
+</ol>
+<p>十进制的 5.0，写成二进制是101.0，相当于1.01×2^2。那么，按照上面V的格式，可以得出s = 0，M = 1.01，E = 2。</p>
+<p>十进制的-5.0，写成二进制是-101.0，相当于-1.01×2^2。那么，s=1，M=1.01，E=2。</p>
+<p>我们从这个公式中可以分析出，阶码真值控制着小数点的位置，阶码每加1，整个数值增大2倍，小数点则向右移1位；阶码每减1，整个数值减小2倍，小数点则向左移动1位。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4938344-2f6a88694dcacaca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-05 上午10.27.12.png"></p>
+<h3 id="规格化的值"><a href="#规格化的值" class="headerlink" title="规格化的值"></a>规格化的值</h3><p><img src="https://upload-images.jianshu.io/upload_images/4938344-e85bc826cfb042f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="格式.png"></p>
+<ul>
+<li>条件：阶码 exp不全为 0 且不全为1</li>
+<li>阶码采用偏移量移码：E = Exp - Bias<ul>
+<li>Exp: exp 字段的无符号数值</li>
+<li>偏移量Bias = 2 ^ (k-1) - 1，k 为阶码的位数<ul>
+<li>单精度：127（Exp：1 ~ 254， E：-126 ~ 127）</li>
+<li>双精度：1023（Exp：1 ~ 2046， E：-1022 ~ 1023）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>尾数编码隐含先导数值1：M = 1.(frac）<ul>
+<li>frac = 0000…0(M = 1.0)时，为最小值</li>
+<li>frac = 111…1(M = 2.0 - ε)时，为最大值</li>
+</ul>
+</li>
+</ul>
+<p><strong>以单精度为例</strong>：</p>
+<p>单精度格式(32位)中的阶码为8位， 另有一位尾数的符号位S，处在最高位。</p>
+<p>应该指出的是，<strong>浮点数的分数部分与有效位部分两者是不同的</strong>， 由于IEEE754标准约定在小数点左部有一位隐含位，从而使其有效位实际有24位，这样便使尾数的有效值变为1M。阶码部分采用移码表示， 移码值为127，从而使阶码值的范围由原来的1到254，经移码后变为<strong>-126到+127</strong>。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4938344-52a64845c61baf72.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单精度.jpg"></p>
+<h3 id="非规格化的值"><a href="#非规格化的值" class="headerlink" title="非规格化的值"></a>非规格化的值</h3><p>条件：阶码 exp 全为 0</p>
+<ul>
+<li>阶码值：E = 1 - Bias</li>
+<li>尾数编码隐含先导数值0：M = 0.(frac）</li>
+</ul>
+<p><strong>情况1：</strong>exp = 000..0, frac = 000.0</p>
+<p>表示值0，根据符号位不同又有+0 和 -0之分</p>
+<p><strong>情况2：</strong>exp = 000..0, frac ≠ 000.0</p>
+<h3 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h3><p>条件：exp = 1111..1</p>
+<p><strong>情况1：</strong>exp = 1111..1, frac = 000.0</p>
+<p>表示无穷，根据符号位不同又有<code>+∞</code> 和 <code>-∞</code>之分</p>
+<p><strong>情况2：</strong>exp = 1111..1, frac ≠ 000.0</p>
+<p>不是一个数 Not A Number(NAN)</p>
+<h3 id="为什么阶码的偏移量是127？"><a href="#为什么阶码的偏移量是127？" class="headerlink" title="为什么阶码的偏移量是127？"></a>为什么阶码的偏移量是127？</h3><p><strong>机器零：</strong></p>
+<p>当浮点数的尾数为 0，不论其阶码为何值，或者当阶码的值遇到比它能表示的最小值还小时，不管其尾数为何值，计算机都把该浮点数看成零值，称为机器零。</p>
+<blockquote>
+<p>当阶码 E 为全 0 且尾数 M 也为全 0 时，表示的真值 x 为零，结合符号位 S 为 0 或 1，有正零和负零之分。当阶码 E 为全1且尾数M 为全0时，表示的真值x 为无穷大，结合符号位S 为0或1，也有<code>+∞</code>和<code>-∞</code>之分。这样在32位浮点数表示中，要除去E 用全0和全1(255)10表示零和无穷大的特殊情况，指数的偏移值不选128(10000000)，而选127(01111111)。对于规格化浮点数，E 的范围变为1到254，真正的指数值e 则为-126到+127。因此32位浮点数表示的绝对值的范围是10 ^ (-38) ~ 10 ^ 38（以10的幂表示）——《计算机组成原理》</p>
+</blockquote>
+<p><strong>对于取127为偏移量的作用，有如下理解：</strong></p>
+<ol>
+<li><p>主要是为了让表示的范围能够对称起来</p>
+<p>分两种情况计算：</p>
+<ul>
+<li>偏移值为127时，绝对值范围大致是：1.2<em>10^(-38)~3.4</em>10^(+38)；</li>
+<li>如果偏移值取为128时， 绝对值范围大致是：5.9 × 10^(-39) ~ 1.7 × 10^(+38)；</li>
+</ul>
+<p>可见偏移值取127时，上下范围基本对称，相对合理点</p>
+</li>
+<li><p>除去非规格化、NaN和无穷大的数值</p>
+<p>如果选择偏移值128时，假设指数（不是阶码）为+127，按照e=E-128,则阶码为127+128=255，全为1 ，数值将为NaN和无穷大</p>
+<p>假设指数为0（包括正0和负0），按e=E-128,则正0+128=128，负0（补码）+128=0,可知E=0时，存在非规格化数</p>
+<p>由于8位E中，只有7位有效数字，7位能表示的大小为0-127，所以偏移量可以在0 ~ 127中任取一值，在IEEE754Z中规定取127.</p>
+</li>
+</ol>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
